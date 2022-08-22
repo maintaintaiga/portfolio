@@ -20,7 +20,7 @@ function App() {
       <ThemeContext.Provider value={{ theme, toggleTheme: toggleTheme }}>
         <div>
           <img
-            src="/logo512.png"
+            src="/android-chrome-192x192.png"
             style={{ width: 200, height: 200, borderRadius: 100 }}
             alt="avatar"
           />
