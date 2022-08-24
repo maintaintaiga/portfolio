@@ -1,10 +1,20 @@
 import { Route, Routes } from "react-router-dom";
-import { HomePage } from "../screens/homepage";
+
+import { Home } from "../screens/home";
+import { About } from "../screens/about";
+import { Projects } from "../screens/projects";
+import { Contact } from "../screens/contact";
+import { Navigation } from "../components/navigation";
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<Navigation />}>
+        <Route path="home" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="contact" element={<Contact />} />
+      </Route>
     </Routes>
   );
 };
