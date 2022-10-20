@@ -4,7 +4,6 @@ import {
   Container,
   Toolbar,
   IconButton,
-  Button,
   Box,
   Drawer,
   List,
@@ -20,12 +19,14 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Link, Outlet } from "react-router-dom";
 import { useTheme } from "../context/theme";
 
+import NavButton from "./navButton";
+
 const drawerWidth = 240;
 const navItems = [
-  { label: "Home", link: "/" },
-  { label: "About", link: "about" },
-  { label: "Projects", link: "projects" },
-  { label: "Contact", link: "contact" },
+  { label: "Home", url: "/" },
+  { label: "About", url: "about" },
+  { label: "Projects", url: "projects" },
+  { label: "Contact", url: "contact" },
 ];
 
 export const Navigation = (props) => {
@@ -73,14 +74,7 @@ export const Navigation = (props) => {
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button
-                color="inherit"
-                key={item.label}
-                to={item.link}
-                component={Link}
-              >
-                {item.label}
-              </Button>
+              <NavButton key={item.label} {...item} />
             ))}
           </Box>
           <IconButton color="inherit" onClick={toggleTheme}>
