@@ -3,7 +3,6 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: papayawhip;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -5,6 +5,7 @@ import { lightTheme, darkTheme } from "./theme";
 import { ThemeContext } from "./context/theme";
 import { useDarkMode } from "./utils/useDarkMode";
 import { AppRoutes } from "./routes/app.routes";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -20,6 +21,7 @@ function App() {
       }
     >
       <ThemeContext.Provider value={{ theme, toggleTheme: toggleTheme }}>
+        <CssBaseline />
         <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>
