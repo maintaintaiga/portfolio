@@ -16,6 +16,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link, Outlet } from "react-router-dom";
 import { useTheme } from "../context/theme";
 
@@ -59,26 +61,69 @@ export const Navigation = (props) => {
     window !== undefined ? () => window().document.body : undefined;
   return (
     <Container component="main" disableGutters={true} maxWidth={false}>
-      <AppBar color="transparent">
+      <AppBar
+        sx={{
+          boxShadow: 0,
+          border: "2px solid",
+          borderColor: (theme) =>
+            theme.palette.mode === "dark" ? "white" : "black",
+          bgcolor: (theme) => theme.palette.background.default,
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{
+              mr: 2,
+              display: { sm: "none" },
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "white" : "black",
+            }}
           >
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }}>
-            <Avatar alt="img" src="/android-chrome-384x384.png" />
+            <Avatar
+              sx={{ width: 50, height: 50 }}
+              alt="img"
+              src="/android-chrome-384x384.png"
+            />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <NavButton key={item.label} {...item} />
             ))}
           </Box>
-          <IconButton color="inherit" onClick={toggleTheme}>
+          <IconButton
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "white" : "black",
+            }}
+            onClick={toggleTheme}
+          >
             {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
+          <IconButton
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "white" : "black",
+            }}
+            to="https://github.com"
+            component={Link}
+          >
+            <GitHubIcon />
+          </IconButton>
+          <IconButton
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "white" : "black",
+            }}
+            to="https://linkedin.com"
+            component={Link}
+          >
+            <LinkedInIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
