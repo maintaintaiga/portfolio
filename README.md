@@ -35,8 +35,4 @@ npm run build
 
 ## License
 
-```bash
-TODO
-```
-
 [MIT](https://choosealicense.com/licenses/mit/)
