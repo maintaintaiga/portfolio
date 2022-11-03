@@ -2,6 +2,30 @@
 
 This is an app to showcase my front end developer skills and provide a home for personal projects.
 
+## Built With
+
+```bash
+TODO
+```
+
+## Purpose
+
+```bash
+TODO
+```
+
+## Skills Learned
+
+```bash
+TODO
+```
+
+## License
+
+```bash
+TODO
+```
+
 ## Usage
 
 ```bash
@@ -14,7 +38,5 @@ npm start
 # Build client for deployment
 npm run build
 ```
-
-## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
