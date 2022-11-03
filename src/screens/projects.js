@@ -21,7 +21,7 @@ const exampleProjects = [
     link: "#",
     description:
       "Nunc eu tincidunt augue. Sed rhoncus ligula in molestie accumsan. Nullam quis volutpat metus. Nulla semper a tellus non eleifend. Pellentesque non tellus eget.",
-    githubLink: "#",
+    githubLink: "https://github.com/maintaintaiga/e-Commerce",
     img: "/example-project-screenshot.png",
   },
   {
@@ -29,7 +29,7 @@ const exampleProjects = [
     link: "#",
     description:
       "Phasellus sed nunc nec velit lacinia rutrum. Fusce consectetur, felis quis sodales euismod, justo velit sodales turpis, nec commodo velit mauris ac diam.",
-    githubLink: "#",
+    githubLink: "https://github.com/maintaintaiga/tvGuide",
     img: "/example-project-screenshot.png",
   },
   {
@@ -37,7 +37,7 @@ const exampleProjects = [
     link: "#",
     description:
       "Nullam pharetra nunc magna, at sodales eros feugiat nec. Aliquam elementum arcu vitae sapien viverra volutpat.",
-    githubLink: "#",
+    githubLink: "https://github.com/maintaintaiga/blog",
     img: "/example-project-screenshot.png",
   },
 ];
