@@ -9,9 +9,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
+
 import Tooltip from "../components/tooltip";
 import Header from "../components/header";
 
@@ -50,11 +50,7 @@ export const Projects = () => {
         <Grid container spacing={2}>
           {exampleProjects.map((el) => (
             <Grid key={el.name} item xs={12} sm={6} md={4} lg={3}>
-              <Card
-                elevation={0}
-                raised
-                sx={{ height: 421, border: "2px solid" }}
-              >
+              <Card elevation={0} raised sx={{ border: "2px solid" }}>
                 <CardMedia component="img" image={el.img} alt="projectimage" />
                 <CardContent sx={{ p: 1 }}>
                   <Typography gutterBottom variant="h5" component="div">
@@ -76,10 +72,10 @@ export const Projects = () => {
                   </Tooltip>
                 </CardContent>
                 <CardActions sx={{ py: 0 }}>
-                  <IconButton to={el.githubLink} component={Link}>
+                  <IconButton href={el.githubLink} target="_blank">
                     <GitHubIcon />
                   </IconButton>
-                  <IconButton to={el.link} component={Link}>
+                  <IconButton href={el.link} target="_blank">
                     <LaunchIcon />
                   </IconButton>
                 </CardActions>

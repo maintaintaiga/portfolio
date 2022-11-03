@@ -64,9 +64,6 @@ export const Navigation = (props) => {
       <AppBar
         sx={{
           boxShadow: 0,
-          border: "2px solid",
-          borderColor: (theme) =>
-            theme.palette.mode === "dark" ? "white" : "black",
           bgcolor: (theme) => theme.palette.background.default,
         }}
       >
@@ -110,8 +107,8 @@ export const Navigation = (props) => {
               color: (theme) =>
                 theme.palette.mode === "dark" ? "white" : "black",
             }}
-            to="https://github.com"
-            component={Link}
+            target="_blank"
+            href="https://github.com"
           >
             <GitHubIcon />
           </IconButton>
@@ -120,8 +117,8 @@ export const Navigation = (props) => {
               color: (theme) =>
                 theme.palette.mode === "dark" ? "white" : "black",
             }}
-            to="https://linkedin.com"
-            component={Link}
+            target="_blank"
+            href="https://www.linkedin.com/in/kate-ramshaw-8a83babb"
           >
             <LinkedInIcon />
           </IconButton>
