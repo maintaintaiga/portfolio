@@ -20,12 +20,6 @@ TODO
 TODO
 ```
 
-## License
-
-```bash
-TODO
-```
-
 ## Usage
 
 ```bash
@@ -37,6 +31,12 @@ npm start
 
 # Build client for deployment
 npm run build
+```
+
+## License
+
+```bash
+TODO
 ```
 
 [MIT](https://choosealicense.com/licenses/mit/)
