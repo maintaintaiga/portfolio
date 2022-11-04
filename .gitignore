@@ -1,0 +1,14 @@
+# Blacklist all node_modules
+/**/node_modules
+# Ignore sensitive environment variables
+code/server/.env*
+code/client/.env*
+# Ignore log files
+/log
+*.log
+# Ignore bak files
+*.bak
+# Ignore VS Code Counter
+**/.VSCodeCounter/
+# Ignore production build files
+/**/build
