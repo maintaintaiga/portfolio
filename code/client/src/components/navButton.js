@@ -6,6 +6,11 @@ export default function NavButton({ label = "", url = "" }) {
     <Button
       sx={{
         color: (theme) => (theme.palette.mode === "dark" ? "white" : "black"),
+        "&:hover": {
+          m: 1,
+          border: 1,
+          fontSize: 15,
+        },
       }}
       to={url}
       component={RouterLink}
