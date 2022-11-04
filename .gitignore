@@ -12,3 +12,5 @@ code/client/.env*
 **/.VSCodeCounter/
 # Ignore production build files
 /**/build
+# Ignore pdf file
+code/server/cvItGeneral.pdf
