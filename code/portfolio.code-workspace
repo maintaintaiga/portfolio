@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": ".\\client"
+    },
+    {
+      "path": ".\\server"
+    }
+  ],
+  "settings": {
+    "prettier.useEditorConfig": false,
+    "editor.formatOnSave": true,
+    "workbench.startupEditor": "none",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "debug.toolBarLocation": "floating"
+  }
+}
