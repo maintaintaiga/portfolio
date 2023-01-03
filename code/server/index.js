@@ -1,10 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-//const cors = require("cors");
-const csurf = require("csurf");
-const { getCsurfOptions, createCsurfTokenCookie } = require("./util/csrf");
-const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const config = require("./util/env-config");
 const getModulePath = require("./util/modulePath");
@@ -14,7 +10,7 @@ const logPath = { label: getModulePath(__filename) };
 
 const runApp = () => {
   const app = express();
-  const port = config.apiServerPort;
+  const port = config.serverPort;
 
   /** Useful for debugging */
   /*
@@ -47,16 +43,6 @@ const runApp = () => {
         max: config.rateLimitMaxRequests,
       })
     );
-  }
-
-  app.use(cookieParser());
-
-  if (config.csrfEnable) {
-    app.use(csurf(getCsurfOptions(config.csrfApiSecretCookieName)));
-    app.use((req, res, next) => {
-      createCsurfTokenCookie(req, res, config.csrfApiTokenCookieName);
-      return next();
-    });
   }
 
   app.use(express.json());
