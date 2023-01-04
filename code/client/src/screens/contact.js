@@ -1,18 +1,52 @@
 import { useState } from "react";
-import { Stack, Button, Paper, Grid, Box } from "@mui/material";
+import { useOutletContext } from "react-router-dom";
+import { Stack, Button, Paper, Grid } from "@mui/material";
 
 import FormControl from "../components/formControl";
 import Header from "../components/header";
+import { ApiAxios } from "../utils/customAxios";
 
+const successProps = {
+  open: true,
+  severity: "success",
+  message: "Successfuly Downloaded",
+};
+const errorProps = {
+  open: true,
+  severity: "error",
+  message: "There was a problem with your request",
+};
 const initialData = { name: "", email: "", message: "" };
 
 export const Contact = () => {
   const [formData, setFormData] = useState(initialData);
+  const [setSnackbarProps, setIsLoading] = useOutletContext();
+
   const handleUpdateForm = (e) => {
     let localData = { ...formData };
     localData[e.target.name] = e.target.value;
     setFormData(localData);
   };
+
+  const handleSendForm = async () => {
+    setIsLoading(true);
+    try {
+      let res = await ApiAxios.post("/contact", formData).catch((err) => {
+        console.error(err);
+        setSnackbarProps({ ...errorProps });
+      });
+      if (res && res.status === 201) {
+        setSnackbarProps({ ...successProps });
+      } else {
+        setSnackbarProps({ ...errorProps });
+      }
+    } catch (err) {
+      console.error(err);
+      setSnackbarProps({ ...errorProps });
+    }
+    setIsLoading(false);
+  };
+
   return (
     <Stack spacing={3}>
       <Header title="Contact" />
@@ -39,9 +73,6 @@ export const Contact = () => {
                   multiline={el === "message"}
                 />
               ))}
-              <Button variant="outlined" color="inherit">
-                Submit
-              </Button>
             </Stack>
           </Paper>
         </Grid>
@@ -51,7 +82,9 @@ export const Contact = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Box sx={{ width: 100, height: 100, bgcolor: "#616161" }} />
+            <Button onClick={handleSendForm} variant="outlined" color="inherit">
+              Submit
+            </Button>
           </Stack>
         </Grid>
       </Grid>
