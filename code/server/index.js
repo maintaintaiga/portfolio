@@ -1,6 +1,8 @@
 const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const cors = require("cors");
+
 const routes = require("./routes");
 const config = require("./util/env-config");
 const getModulePath = require("./util/modulePath");
@@ -27,14 +29,13 @@ const runApp = () => {
 
   app.use(helmet());
 
-  /* app.use(
+  app.use(
     cors({
       origin: [config.corsOrigin],
       methods: [`HEAD`, `GET`, `POST`, `PUT`, `DELETE`],
       credentials: true,
-      exposedHeaders: ["X-Total-Count", "x-permission-granted"],
     })
-  );*/
+  );
 
   if (config.rateLimitEnable) {
     app.use(
