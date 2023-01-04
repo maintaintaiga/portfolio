@@ -2,7 +2,9 @@ const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
-
+const csurf = require("csurf");
+const { getCsurfOptions, createCsurfTokenCookie } = require("../util/csrf");
+const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const config = require("./util/env-config");
 const getModulePath = require("./util/modulePath");
@@ -44,6 +46,16 @@ const runApp = () => {
         max: config.rateLimitMaxRequests,
       })
     );
+  }
+
+  app.use(cookieParser());
+
+  if (config.csrfEnable) {
+    app.use(csurf(getCsurfOptions(config.csrfSecretCookieName)));
+    app.use((req, res, next) => {
+      createCsurfTokenCookie(req, res, config.csrfTokenCookieName);
+      return next();
+    });
   }
 
   app.use(express.json());
