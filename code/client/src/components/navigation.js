@@ -11,6 +11,10 @@ import {
   ListItemButton,
   ListItemText,
   Avatar,
+  Snackbar,
+  Alert,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -30,15 +34,25 @@ const navItems = [
   { label: "Projects", url: "projects" },
   { label: "Contact", url: "contact" },
 ];
+const defaultSnackbarProps = { open: false, severity: "info", message: "" };
 
 export const Navigation = (props) => {
   const { window } = props;
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [snackbarProps, setSnackbarProps] = useState({
+    ...defaultSnackbarProps,
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleClose = () => {
+    setSnackbarProps((prev) => ({ ...prev, open: false }));
+  };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <List>
@@ -57,8 +71,10 @@ export const Navigation = (props) => {
       </List>
     </Box>
   );
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
   return (
     <Container component="main" disableGutters={true} maxWidth={false}>
       <AppBar
@@ -146,8 +162,28 @@ export const Navigation = (props) => {
       </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-        <Outlet />
+        <Outlet context={[setSnackbarProps, setIsLoading]} />
       </Box>
+      <Snackbar
+        open={snackbarProps.open}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        autoHideDuration={10000}
+      >
+        <Alert
+          severity={snackbarProps.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+          onClose={handleClose}
+        >
+          {snackbarProps.message}
+        </Alert>
+      </Snackbar>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };
