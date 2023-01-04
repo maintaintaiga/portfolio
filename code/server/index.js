@@ -3,12 +3,13 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const csurf = require("csurf");
-const { getCsurfOptions, createCsurfTokenCookie } = require("../util/csrf");
 const cookieParser = require("cookie-parser");
+
 const routes = require("./routes");
 const config = require("./util/env-config");
 const getModulePath = require("./util/modulePath");
 const logger = require("./util/winston-config");
+const { getCsurfOptions, createCsurfTokenCookie } = require("./util/csrf");
 
 const logPath = { label: getModulePath(__filename) };
 

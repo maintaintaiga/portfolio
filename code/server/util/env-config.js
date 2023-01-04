@@ -28,10 +28,10 @@ module.exports = {
   rateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS,
   rateLimitMaxRequests: process.env.RATE_LIMIT_MAX_REQUESTS,
   userEmailAddressOverride: process.env.USER_EMAIL_ADDRESS_OVERRIDE,
-  emailEnabled: process.env.EMAIL_ENABLED,
+  emailEnabled: process.env.EMAIL_ENABLED === "true",
   emailServiceUser: process.env.EMAIL_SERVICE_USER,
   emailServicePassword: process.env.EMAIL_SERVICE_PASSWORD,
-  emailFromAddress: replaceTitle(process.env.EMAIL_FROM_ADDRESS),
+  emailFromAddress: process.env.EMAIL_FROM_ADDRESS,
   emailPort: process.env.EMAIL_PORT,
   logFilePath: replaceTitle(process.env.LOG_FILE_PATH),
 };
