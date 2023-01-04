@@ -19,11 +19,21 @@ export const Home = () => {
     <Box sx={{ width: "50%", my: 4 }}>
       <Typography variant="h1">Frontend</Typography>
       <Typography variant="h1">Developer</Typography>
-      <Box sx={{ p: 4 }}>
+      <Box
+        sx={{
+          mt: 4,
+          mb: 4,
+          bgcolor: (theme) => theme.palette.primary.light,
+          transform: "skewX(20deg)",
+          width: "100%",
+          height: 20,
+        }}
+      />
+      <Box sx={{ p: 4, mt: 4 }}>
         <Grid container spacing={3}>
           {skills.map((el) => (
             <Grid item key={el}>
-              <Chip color="primary" label={el} />
+              <Chip color="secondary" label={el} />
             </Grid>
           ))}
         </Grid>
