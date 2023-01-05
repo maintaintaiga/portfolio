@@ -26,6 +26,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useTheme } from "../context/theme";
 
 import NavButton from "./navButton";
+import Tooltip from "./tooltip";
 
 const drawerWidth = 240;
 const navItems = [
@@ -76,7 +77,7 @@ export const Navigation = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Container component="main" disableGutters={true} maxWidth={false}>
+    <Container component="main" maxWidth="md">
       <AppBar
         sx={{
           boxShadow: 0,
@@ -109,35 +110,41 @@ export const Navigation = (props) => {
               <NavButton key={item.label} {...item} />
             ))}
           </Box>
-          <IconButton
-            sx={{
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "white" : "black",
-            }}
-            onClick={toggleTheme}
-          >
-            {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
-          </IconButton>
-          <IconButton
-            sx={{
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "white" : "black",
-            }}
-            target="_blank"
-            href="https://github.com"
-          >
-            <GitHubIcon />
-          </IconButton>
-          <IconButton
-            sx={{
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "white" : "black",
-            }}
-            target="_blank"
-            href="https://www.linkedin.com/in/kate-ramshaw-8a83babb"
-          >
-            <LinkedInIcon />
-          </IconButton>
+          <Tooltip title="Toggle Dark Mode">
+            <IconButton
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "white" : "black",
+              }}
+              onClick={toggleTheme}
+            >
+              {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Github Repository">
+            <IconButton
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "white" : "black",
+              }}
+              target="_blank"
+              href="https://github.com"
+            >
+              <GitHubIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="LinkedIn Profile">
+            <IconButton
+              sx={{
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "white" : "black",
+              }}
+              target="_blank"
+              href="https://www.linkedin.com/in/kate-ramshaw-8a83babb"
+            >
+              <LinkedInIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Box component="nav">
@@ -160,14 +167,14 @@ export const Navigation = (props) => {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box sx={{ p: 3, mt: 5 }}>
         <Toolbar />
         <Outlet context={[setSnackbarProps, setIsLoading]} />
       </Box>
       <Snackbar
         open={snackbarProps.open}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        autoHideDuration={10000}
+        autoHideDuration={3000}
       >
         <Alert
           severity={snackbarProps.severity}
