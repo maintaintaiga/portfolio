@@ -1,8 +1,11 @@
 const express = require("express");
 const cvController = require("./controllers/cv");
 const contactController = require("./controllers/contact");
+const utilController = require("./controllers/util");
 
 const router = express.Router();
+
+router.get("/csrf-init", utilController.csrfInit);
 
 router.get("/cv", cvController.get);
 
