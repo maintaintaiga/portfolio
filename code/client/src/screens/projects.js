@@ -49,7 +49,7 @@ export const Projects = () => {
       <Box>
         <Grid container spacing={2}>
           {exampleProjects.map((el) => (
-            <Grid key={el.name} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={el.name} item xs={12} sm={6} md={4}>
               <Card elevation={0} raised sx={{ border: "2px solid" }}>
                 <CardMedia component="img" image={el.img} alt="projectimage" />
                 <CardContent sx={{ p: 1 }}>

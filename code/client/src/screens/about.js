@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import { Fab, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 
 import Header from "../components/header";
@@ -66,9 +66,9 @@ export const About = () => {
         eu rutrum sollicitudin. Curabitur eleifend est odio, eget ornare ex
         pellentesque eget.
       </Typography>
-      <Fab variant="extended" sx={{ width: 300 }} onClick={handleDownload}>
+      <Button variant="outlined" color="inherit" onClick={handleDownload}>
         Download CV <DownloadIcon sx={{ ml: 1 }} />
-      </Fab>
+      </Button>
     </Stack>
   );
 };
