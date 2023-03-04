@@ -1,20 +1,21 @@
 const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-//const cors = require("cors");
+const cors = require("cors");
 const csurf = require("csurf");
-const { getCsurfOptions, createCsurfTokenCookie } = require("./util/csrf");
 const cookieParser = require("cookie-parser");
+
 const routes = require("./routes");
 const config = require("./util/env-config");
 const getModulePath = require("./util/modulePath");
 const logger = require("./util/winston-config");
+const { getCsurfOptions, createCsurfTokenCookie } = require("./util/csrf");
 
 const logPath = { label: getModulePath(__filename) };
 
 const runApp = () => {
   const app = express();
-  const port = config.apiServerPort;
+  const port = config.serverPort;
 
   /** Useful for debugging */
   /*
@@ -31,14 +32,13 @@ const runApp = () => {
 
   app.use(helmet());
 
-  /* app.use(
+  app.use(
     cors({
       origin: [config.corsOrigin],
       methods: [`HEAD`, `GET`, `POST`, `PUT`, `DELETE`],
       credentials: true,
-      exposedHeaders: ["X-Total-Count", "x-permission-granted"],
     })
-  );*/
+  );
 
   if (config.rateLimitEnable) {
     app.use(
@@ -52,9 +52,9 @@ const runApp = () => {
   app.use(cookieParser());
 
   if (config.csrfEnable) {
-    app.use(csurf(getCsurfOptions(config.csrfApiSecretCookieName)));
+    app.use(csurf(getCsurfOptions(config.csrfSecretCookieName)));
     app.use((req, res, next) => {
-      createCsurfTokenCookie(req, res, config.csrfApiTokenCookieName);
+      createCsurfTokenCookie(req, res, config.csrfTokenCookieName);
       return next();
     });
   }

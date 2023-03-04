@@ -1,8 +1,8 @@
 const mailjet = require("node-mailjet");
 
-const config = require("../../util/env-config");
-const getModulePath = require("../modulePath");
-const logger = require("../winston-config");
+const config = require("./env-config");
+const getModulePath = require("./modulePath");
+const logger = require("./winston-config");
 
 const logPath = { label: getModulePath(__filename) };
 
@@ -10,10 +10,9 @@ const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
   try {
     if (config.emailEnabled === true) {
       //send mail
-      const mailjetClient = mailjet.connect(
+      const mailjetClient = mailjet.apiConnect(
         config.emailServiceUser,
-        config.emailServicePassword,
-        { version: "v3.1", url: "api.mailjet.com", perform_api_call: true }
+        config.emailServicePassword
       );
 
       if (config.userEmailAddressOverride.length > 0) {
@@ -39,7 +38,7 @@ const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
       logger.info(`message: ${JSON.stringify(message)}`, logPath);
 
       const result = await mailjetClient
-        .post("send")
+        .post("send", { version: "v3.1" })
         .request({ Messages: [message] });
 
       if (!result || result.err) {
