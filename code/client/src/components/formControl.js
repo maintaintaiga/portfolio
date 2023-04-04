@@ -9,7 +9,7 @@ export default function FormControl({ label, value, onChange, multiline }) {
       onChange={onChange}
       fullWidth
       multiline={multiline}
-      rows={multiline ? 8 : 1}
+      minRows={4}
     />
   );
 }
