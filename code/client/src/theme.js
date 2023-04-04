@@ -1,7 +1,7 @@
 const lightTheme = {
   palette: {
     mode: "light",
-    background: { default: "#ffefd5" },
+    background: { default: "#fff9ef" },
     primary: {
       main: "#ffa411",
     },
