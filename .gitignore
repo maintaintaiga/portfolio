@@ -14,3 +14,4 @@ code/client/.env*
 /**/build
 # Ignore pdf file
 code/server/cvPortfolioFile.pdf
+code/server/util/cvInfo.js
