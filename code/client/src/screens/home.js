@@ -17,25 +17,20 @@ const skills = [
 export const Home = () => {
   return (
     <Box>
-      <Typography variant="h1">Frontend</Typography>
-      <Typography variant="h1">Developer</Typography>
-      <Box
-        sx={{
-          mt: 6,
-          mb: 6,
-          bgcolor: (theme) =>
-            theme.palette.mode === "dark" ? "#353535" : "#e7d4b675",
-          opacity: 0.9,
-          borderRadius: 30,
-          width: "100%",
-          height: 18,
-        }}
-      />
-      <Box>
+      <Typography variant="h1">{"Frontend"}</Typography>
+      <Typography variant="h1">{"Developer"}</Typography>
+      <Typography variant="h4" color="textSecondary">
+        {"// Kate Ramshaw"}
+      </Typography>
+      <Box sx={{ mt: 5 }}>
         <Grid container spacing={3}>
           {skills.map((el) => (
             <Grid item key={el}>
-              <Chip color="secondary" variant="outlined" label={el} />
+              <Chip
+                color="secondary"
+                sx={{ fontWeight: 700, p: 1 }}
+                label={el}
+              />
             </Grid>
           ))}
         </Grid>
