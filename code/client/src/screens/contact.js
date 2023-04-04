@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { Stack, Button, Paper } from "@mui/material";
+import { Stack, Paper, Fab } from "@mui/material";
 
 import FormControl from "../components/formControl";
 import Header from "../components/header";
@@ -21,6 +21,29 @@ const initialData = { name: "", email: "", message: "" };
 export const Contact = () => {
   const [formData, setFormData] = useState(initialData);
   const [setSnackbarProps, setIsLoading] = useOutletContext();
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  let formHeight = windowSize.height - 300;
+
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleUpdateForm = (e) => {
     let localData = { ...formData };
@@ -60,14 +83,16 @@ export const Contact = () => {
         sx={{
           border: "8px solid",
           borderColor: (theme) =>
-            theme.palette.mode === "dark" ? "#424242" : "#fff8ee",
+            theme.palette.mode === "dark" ? "#424242" : "#ffdfac",
           bgcolor: (theme) =>
             theme.palette.mode === "dark" ? "#3e3b35" : "#ffd289",
           p: 2,
           width: "100%",
+          height: formHeight,
+          overflow: "auto",
         }}
       >
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ height: "100%" }}>
           {Object.keys(initialData).map((el) => (
             <FormControl
               key={el}
@@ -79,9 +104,20 @@ export const Contact = () => {
           ))}
         </Stack>
       </Paper>
-      <Button onClick={handleSendForm} variant="outlined" color="inherit">
+      <Fab
+        onClick={handleSendForm}
+        color="inherit"
+        variant="extended"
+        sx={{
+          bgcolor: "transparent",
+          borderRadius: 1,
+          boxShadow: "none",
+          border: 1,
+          margin: 1,
+        }}
+      >
         Submit
-      </Button>
+      </Fab>
     </Stack>
   );
 };
