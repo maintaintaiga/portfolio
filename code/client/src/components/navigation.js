@@ -22,7 +22,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useMatch } from "react-router-dom";
 import { useTheme } from "../context/theme";
 
 import NavButton from "./navButton";
@@ -39,6 +39,7 @@ const defaultSnackbarProps = { open: false, severity: "info", message: "" };
 
 export const Navigation = (props) => {
   const { window } = props;
+  const isCv = useMatch("cv");
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [snackbarProps, setSnackbarProps] = useState({
@@ -78,96 +79,100 @@ export const Navigation = (props) => {
 
   return (
     <Container component="main" maxWidth="md">
-      <AppBar
-        sx={{
-          boxShadow: 0,
-          bgcolor: (theme) => theme.palette.background.default,
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{
-              mr: 2,
-              display: { sm: "none" },
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "white" : "black",
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ flexGrow: 1 }}>
-            <Avatar
-              sx={{ width: 50, height: 50 }}
-              alt="img"
-              src="/android-chrome-384x384.png"
-            />
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <NavButton key={item.label} {...item} />
-            ))}
-          </Box>
-          <Tooltip title="Toggle Dark Mode">
-            <IconButton
-              sx={{
-                color: (theme) =>
-                  theme.palette.mode === "dark" ? "white" : "black",
-              }}
-              onClick={toggleTheme}
-            >
-              {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Github Repository">
-            <IconButton
-              sx={{
-                color: (theme) =>
-                  theme.palette.mode === "dark" ? "white" : "black",
-              }}
-              target="_blank"
-              href="https://github.com"
-            >
-              <GitHubIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="LinkedIn Profile">
-            <IconButton
-              sx={{
-                color: (theme) =>
-                  theme.palette.mode === "dark" ? "white" : "black",
-              }}
-              target="_blank"
-              href="https://www.linkedin.com/in/kate-ramshaw-8a83babb"
-            >
-              <LinkedInIcon />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+      {!isCv ? (
+        <AppBar
           sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
+            boxShadow: 0,
+            bgcolor: (theme) => theme.palette.background.default,
           }}
         >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box sx={{ p: 3, mt: 5 }}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{
+                mr: 2,
+                display: { sm: "none" },
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "white" : "black",
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box sx={{ flexGrow: 1 }}>
+              <Avatar
+                sx={{ width: 50, height: 50 }}
+                alt="img"
+                src="/android-chrome-384x384.png"
+              />
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <NavButton key={item.label} {...item} />
+              ))}
+            </Box>
+            <Tooltip title="Toggle Dark Mode">
+              <IconButton
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === "dark" ? "white" : "black",
+                }}
+                onClick={toggleTheme}
+              >
+                {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Github Repository">
+              <IconButton
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === "dark" ? "white" : "black",
+                }}
+                target="_blank"
+                href="https://github.com"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="LinkedIn Profile">
+              <IconButton
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === "dark" ? "white" : "black",
+                }}
+                target="_blank"
+                href="https://www.linkedin.com/in/kate-ramshaw-8a83babb"
+              >
+                <LinkedInIcon />
+              </IconButton>
+            </Tooltip>
+          </Toolbar>
+        </AppBar>
+      ) : null}
+      {!isCv ? (
+        <Box component="nav">
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+      ) : null}
+      <Box sx={{ p: 3, mt: 1 }}>
         <Toolbar />
         <Outlet context={[setSnackbarProps, setIsLoading]} />
       </Box>
