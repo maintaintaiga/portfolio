@@ -18,7 +18,7 @@ module.exports = {
   appPrivateTitleLc: process.env.APP_PRIVATE_TITLE_LC,
   nodeEnv: process.env.NODE_ENV,
   logLevel: process.env.LOG_LEVEL,
-  serverPort: process.env.SERVER_PORT,
+  port: process.env.SERVER_PORT,
   corsOrigin: replaceTitle(process.env.CORS_ORIGIN),
   clientDomain: replaceTitle(process.env.CLIENT_DOMAIN),
   csrfEnable: process.env.CSRF_ENABLE === "true",
