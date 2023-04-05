@@ -7,7 +7,7 @@ const logPath = { label: getModulePath(__filename) };
 const get = async (req, res, next) => {
   try {
     console.log("here it is");
-    res.json(data).status(200);
+    res.status(200).json(data);
   } catch (err) {
     logger.error(`Database report controller failed`, err, logPath);
     return next(extractError(err));
