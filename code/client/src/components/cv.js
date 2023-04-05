@@ -1,6 +1,5 @@
 import {
   Box,
-  Fab,
   List,
   ListItem,
   ListItemText,
@@ -44,6 +43,7 @@ export const CVDocument = () => {
       if (res && res.status === 200) {
         setData(res.data);
       } else {
+        setData(null);
         setSnackbarProps({ ...errorProps });
       }
       setIsLoading(false);
@@ -51,9 +51,12 @@ export const CVDocument = () => {
     getData();
   }, [setIsLoading, setSnackbarProps]);
 
-  const onDownload = () => {
-    htmlToPdf(["cv1", "cv2"]);
-  };
+  useEffect(() => {
+    if (data) {
+      htmlToPdf(["cv1", "cv2"]);
+      console.log("thing new");
+    }
+  }, [data]);
 
   let summary = (
     <Stack spacing={1} sx={{ m: 2, p: 2, bgcolor: "#e3dbce" }}>
@@ -106,22 +109,24 @@ export const CVDocument = () => {
   );
 
   let timeline = (data) =>
-    data.map((el) => (
-      <Stack key={el.label}>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography sx={{ fontStyle: "italic", fontWeight: 500 }}>
-            {el.label}
-          </Typography>
-          <Typography color="textSecondary">{el.date}</Typography>
-        </Box>
-        {el.location ? (
-          <Typography sx={{ fontSize: 14 }}>{el.location}</Typography>
-        ) : null}
-        <Typography variant="body2" color="textSecondary">
-          {el.description}
-        </Typography>
-      </Stack>
-    ));
+    data
+      ? data.map((el) => (
+          <Stack key={el.label}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography sx={{ fontStyle: "italic", fontWeight: 500 }}>
+                {el.label}
+              </Typography>
+              <Typography color="textSecondary">{el.date}</Typography>
+            </Box>
+            {el.location ? (
+              <Typography sx={{ fontSize: 14 }}>{el.location}</Typography>
+            ) : null}
+            <Typography variant="body2" color="textSecondary">
+              {el.description}
+            </Typography>
+          </Stack>
+        ))
+      : null;
 
   let employment = timeline(
     showAdditional
@@ -150,9 +155,6 @@ export const CVDocument = () => {
         bgcolor: (theme) => theme.palette.background.default,
       }}
     >
-      <Fab variant="extended" onClick={onDownload}>
-        Download
-      </Fab>
       <div id="cv1">
         {summary}
         <Section title="Skills">{skillList}</Section>
