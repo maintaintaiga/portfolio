@@ -15,7 +15,7 @@ const logPath = { label: getModulePath(__filename) };
 
 const runApp = () => {
   const app = express();
-  const port = config.serverPort;
+  const port = config.port;
 
   /** Useful for debugging */
   /*
