@@ -57,11 +57,11 @@ export const About = () => {
       <Button
         variant="outlined"
         color="inherit"
-        to="cv"
+        to="/cv"
         target="_blank"
         LinkComponent={Link}
       >
-        Cv
+        Download Cv
       </Button>
     </Stack>
   );

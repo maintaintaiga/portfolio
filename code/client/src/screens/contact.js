@@ -9,7 +9,7 @@ import { ApiAxios } from "../utils/customAxios";
 const successProps = {
   open: true,
   severity: "success",
-  message: "Successfuly Downloaded",
+  message: "Successfuly Sent Message",
 };
 const errorProps = {
   open: true,
@@ -62,6 +62,7 @@ export const Contact = () => {
         });
         if (res && res.status === 201) {
           setSnackbarProps({ ...successProps });
+          setFormData(initialData);
         } else {
           setSnackbarProps({ ...errorProps });
         }

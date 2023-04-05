@@ -43,37 +43,37 @@ export const Projects = () => {
     <Stack spacing={3}>
       <Header title="Projects" />
       <Box>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {exampleProjects.map((el) => (
-            <Grid key={el.name} item xs={12} sm={6} md={4}>
-              <Card elevation={0} raised sx={{ border: "2px solid" }}>
-                <CardMedia component="img" image={el.img} alt="Coming Soon" />
-                <CardContent sx={{ p: 1 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {el.name}
-                  </Typography>
-                  <Tooltip title={el.description}>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display:
-                          "-webkit-box;-webkit-line-clamp: 2;line-clamp: 2;-webkit-box-orient: vertical;",
-                      }}
-                    >
+            <Grid key={el.name} item xs={12}>
+              <Card
+                elevation={0}
+                raised
+                sx={{ border: "2px solid", display: "flex" }}
+              >
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                  <CardContent sx={{ p: 1 }}>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {el.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
                       {el.description}
                     </Typography>
-                  </Tooltip>
-                </CardContent>
-                <CardActions sx={{ py: 0 }}>
-                  <Tooltip title={`Go to ${el.name}`}>
-                    <IconButton href={el.link} target="_blank">
-                      <LaunchIcon />
-                    </IconButton>
-                  </Tooltip>
-                </CardActions>
+                  </CardContent>
+                  <CardActions sx={{ py: 0 }}>
+                    <Tooltip title={`Go to ${el.name}`}>
+                      <IconButton edge="start" href={el.link} target="_blank">
+                        <LaunchIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </CardActions>
+                </Box>
+                <CardMedia
+                  component="img"
+                  image={el.img}
+                  alt="Coming Soon"
+                  sx={{ height: 140 }}
+                />
               </Card>
             </Grid>
           ))}
