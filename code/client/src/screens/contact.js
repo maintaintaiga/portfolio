@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { Stack, Paper, Fab } from "@mui/material";
+import { Stack, Paper, Button } from "@mui/material";
 
 import FormControl from "../components/formControl";
 import Header from "../components/header";
@@ -105,20 +105,9 @@ export const Contact = () => {
           ))}
         </Stack>
       </Paper>
-      <Fab
-        onClick={handleSendForm}
-        color="inherit"
-        variant="extended"
-        sx={{
-          bgcolor: "transparent",
-          borderRadius: 1,
-          boxShadow: "none",
-          border: 1,
-          margin: 1,
-        }}
-      >
+      <Button onClick={handleSendForm} color="inherit" variant="outlined">
         Submit
-      </Fab>
+      </Button>
     </Stack>
   );
 };
