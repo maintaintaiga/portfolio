@@ -54,7 +54,6 @@ export const CVDocument = () => {
   useEffect(() => {
     if (data) {
       htmlToPdf(["cv1", "cv2"]);
-      console.log("thing new");
     }
   }, [data]);
 
