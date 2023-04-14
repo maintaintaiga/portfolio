@@ -134,7 +134,7 @@ export const Navigation = (props) => {
                       theme.palette.mode === "dark" ? "white" : "black",
                   }}
                   target="_blank"
-                  href="https://github.com"
+                  href="https://github.com/maintaintaiga"
                 >
                   <GitHubIcon />
                 </IconButton>
