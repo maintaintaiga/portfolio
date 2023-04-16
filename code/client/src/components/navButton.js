@@ -13,9 +13,8 @@ export default function NavButton({ label = "", url = "" }) {
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         "&:hover": {
-          m: 1,
-          border: 2,
-          fontSize: 15,
+          color: (theme) => theme.palette.primary.main,
+          bgcolor: "transparent",
         },
       }}
       to={url}
