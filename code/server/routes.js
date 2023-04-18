@@ -9,6 +9,8 @@ router.get("/csrf-init", utilController.csrfInit);
 
 router.get("/cv", cvController.get);
 
+router.get("/cv/:name", cvController.getItem);
+
 router.post("/contact", contactController.create);
 
 router.use((req, res) => {
