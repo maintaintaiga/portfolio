@@ -18,7 +18,15 @@ const exampleProjects = [
       Data storage was provided by the ArangoDB NOSQL database.
       The web server was provided by NginX which was also used as a reverse proxy for the server applications.
       Visual Studio Code was used as the development environment with a local server stack provided by WinNMP.`,
-    img: ["/screenshots/example-project-screenshot.png"],
+    img: [
+      "/screenshots/orchidana-dashboard.png",
+      "/screenshots/orchidana-projects.png",
+      "/screenshots/orchidana-project-item.png",
+      "/screenshots/orchidana-questionnaire-tree-question-item.png",
+      "/screenshots/orchidana-assignments.png",
+      "/screenshots/orchidana-assignment-filters.png",
+      "/screenshots/orchidana-group-permissions.png",
+    ],
   },
   {
     name: "Food Explorer",
