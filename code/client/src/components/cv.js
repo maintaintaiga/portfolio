@@ -65,7 +65,15 @@ export const CVDocument = () => {
       <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
         Web Developer | {process.env.REACT_APP_PORTFOLIO_URL}
       </Typography>
-      <Typography variant="body2">{data?.about}</Typography>
+      {Array.isArray(data?.about) ? (
+        data.about.map((el, i) => (
+          <Typography key={i} variant="body2">
+            {el}
+          </Typography>
+        ))
+      ) : (
+        <Typography variant="body2">{data?.about}</Typography>
+      )}
     </Stack>
   );
 
