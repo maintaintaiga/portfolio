@@ -1,16 +1,10 @@
-import { useOutletContext, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
 
 import Header from "../components/header";
 import { ApiAxios } from "../utils/customAxios";
-import { about } from "../utils/cvInfo";
 
-const successProps = {
-  open: true,
-  severity: "success",
-  message: "Successfuly Downloaded",
-};
 const errorProps = {
   open: true,
   severity: "error",
@@ -19,41 +13,34 @@ const errorProps = {
 
 export const About = () => {
   const [setSnackbarProps, setIsLoading] = useOutletContext();
+  const [data, setData] = useState(null);
 
-  const handleDownload = async () => {
-    setIsLoading(true);
-    try {
-      let res = await ApiAxios.get("/cv", { responseType: "blob" }).catch(
-        (err) => {
-          console.error(err);
-          setSnackbarProps({ ...errorProps });
-        }
-      );
+  useEffect(() => {
+    const getData = async () => {
+      setIsLoading(true);
+      let res = await ApiAxios.get("/cv/about").catch((err) => {
+        console.error(err);
+        setSnackbarProps({ ...errorProps });
+      });
       if (res && res.status === 200) {
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement("a");
-        link.download = "Kate-Ramshaw-Curriculum-Vitae.pdf";
-        link.href = url;
-        link.target = "_self";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(url);
-        setSnackbarProps({ ...successProps });
+        setData(res.data);
       } else {
+        setData(null);
         setSnackbarProps({ ...errorProps });
       }
-    } catch (err) {
-      console.error(err);
-      setSnackbarProps({ ...errorProps });
-    }
-    setIsLoading(false);
-  };
+      setIsLoading(false);
+    };
+    getData();
+  }, [setIsLoading, setSnackbarProps]);
 
   return (
     <Stack spacing={3}>
       <Header title="About" />
-      <Typography>{about}</Typography>
+      {Array.isArray(data) ? (
+        data.map((el, i) => <Typography key={i}>{el}</Typography>)
+      ) : (
+        <Typography>{data}</Typography>
+      )}
       <Button
         variant="outlined"
         color="inherit"
