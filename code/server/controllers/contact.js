@@ -1,4 +1,5 @@
 const getModulePath = require("../util/modulePath");
+const extractError = require("../util/extract-error");
 const { sendMail } = require("../util/send-mail");
 const logger = require("../util/winston-config");
 
