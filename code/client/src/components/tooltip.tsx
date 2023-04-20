@@ -1,8 +1,16 @@
-import MuiTooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import MuiTooltip, {
+  tooltipClasses,
+  TooltipProps,
+} from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
 
-export default function Tooltip({ children, title }) {
-  const LightTooltip = styled(({ className, ...props }) => (
+type CompProps = {
+  children: JSX.Element;
+  title: string;
+};
+
+export default function Tooltip({ children, title }: CompProps) {
+  const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     <MuiTooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
