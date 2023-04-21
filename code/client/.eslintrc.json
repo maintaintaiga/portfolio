@@ -10,10 +10,16 @@
     "es6": true,
     "jest/globals": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "JSX": "readonly"
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,7 +28,15 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "jest"],
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error"]
+      }
+    }
+  ],
+  "plugins": ["react", "react-hooks", "jest", "@typescript-eslint"],
   "rules": {
     "react/prop-types": 0,
     "react/display-name": 0,
@@ -30,12 +44,17 @@
     "react/jsx-key": 0,
     "react-hooks/exhaustive-deps": "off",
     "no-prototype-builtins": "off",
-    "no-unused-vars": "error",
+    "no-unused-vars": "warn",
     "no-unused-expressions": "error",
     "no-empty": "off",
     "no-constant-condition": "off",
     "no-undef": "error",
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off"
   }
 }
