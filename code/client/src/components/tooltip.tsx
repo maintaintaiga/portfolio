@@ -9,7 +9,7 @@ type CompProps = {
   title: string;
 };
 
-export default function Tooltip({ children, title }: CompProps) {
+export default function Tooltip({ children, title }: CompProps): JSX.Element {
   const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     <MuiTooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
