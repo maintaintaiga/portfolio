@@ -14,7 +14,7 @@ const skills = [
   "CSS",
 ];
 
-export const Home = () => {
+export const Home = (): JSX.Element => {
   return (
     <Box>
       <Typography variant="h1">{"Frontend"}</Typography>

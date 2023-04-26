@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Stack, Paper, Button } from "@mui/material";
 
 import FormControl from "../components/formControl";
 import Header from "../components/header";
 import { ApiAxios } from "../utils/customAxios";
+import { useNavProps } from "../utils/useNavProps";
+
+type FormProps = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 const successProps = {
   open: true,
@@ -18,19 +24,19 @@ const errorProps = {
 };
 const initialData = { name: "", email: "", message: "" };
 
-export const Contact = () => {
-  const [formData, setFormData] = useState(initialData);
-  const [setSnackbarProps, setIsLoading] = useOutletContext();
+export const Contact = (): JSX.Element => {
+  const [formData, setFormData] = useState<FormProps>(initialData);
+  const [setSnackbarProps, setIsLoading] = useNavProps();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
-  let formHeight = windowSize.height - 300;
+  const formHeight = windowSize.height - 300;
 
   useEffect(() => {
     // Handler to call on window resize
-    function handleResize() {
+    function handleResize(): void {
       // Set window width/height to state
       setWindowSize({
         width: window.innerWidth,
@@ -45,18 +51,19 @@ export const Contact = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleUpdateForm = (e) => {
-    let localData = { ...formData };
-    localData[e.target.name] = e.target.value;
+  const handleUpdateForm = (e: ChangeEvent<HTMLInputElement>): void => {
+    const localData = { ...formData };
+    const { name, value } = e.target;
+    localData[name as keyof FormProps] = value;
     setFormData(localData);
   };
 
-  const handleSendForm = async () => {
+  const handleSendForm = async (): Promise<void> => {
     setIsLoading(true);
     try {
-      let initCsrf = await ApiAxios.get("/csrf-init");
+      const initCsrf = await ApiAxios.get("/csrf-init");
       if (initCsrf) {
-        let res = await ApiAxios.post("/contact", formData).catch((err) => {
+        const res = await ApiAxios.post("/contact", formData).catch((err) => {
           console.error(err);
           setSnackbarProps({ ...errorProps });
         });
@@ -98,7 +105,7 @@ export const Contact = () => {
             <FormControl
               key={el}
               label={el}
-              value={formData[el]}
+              value={formData[el as keyof FormProps]}
               onChange={handleUpdateForm}
               multiline={el === "message"}
             />

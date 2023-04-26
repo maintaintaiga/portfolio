@@ -13,11 +13,15 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { Fullscreen } from "@mui/icons-material";
 
-export const Carousel = ({ images }) => {
+type CarouselProps = {
+  images: string[];
+};
+
+export const Carousel = ({ images }: CarouselProps): JSX.Element => {
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
 
-  let stepper = (
+  const stepper = (
     <MobileStepper
       position="static"
       sx={{ bgcolor: "inherit", p: 0 }}
@@ -26,7 +30,7 @@ export const Carousel = ({ images }) => {
       backButton={
         <IconButton
           size="small"
-          onClick={() =>
+          onClick={(): void =>
             setActive((prev) => (prev === 0 ? images.length - 1 : prev - 1))
           }
         >
@@ -36,7 +40,7 @@ export const Carousel = ({ images }) => {
       nextButton={
         <IconButton
           size="small"
-          onClick={() =>
+          onClick={(): void =>
             setActive((prev) => (prev === images.length - 1 ? 0 : prev + 1))
           }
         >
@@ -60,7 +64,10 @@ export const Carousel = ({ images }) => {
             title=""
             position="top"
             actionIcon={
-              <IconButton onClick={() => setOpen(true)} sx={{ color: "white" }}>
+              <IconButton
+                onClick={(): void => setOpen(true)}
+                sx={{ color: "white" }}
+              >
                 <Fullscreen />
               </IconButton>
             }
@@ -71,7 +78,7 @@ export const Carousel = ({ images }) => {
       {stepper}
       <Dialog
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={(): void => setOpen(false)}
         fullWidth
         maxWidth="md"
       >
@@ -81,7 +88,7 @@ export const Carousel = ({ images }) => {
           <Button
             variant="contained"
             color="info"
-            onClick={() => setOpen(false)}
+            onClick={(): void => setOpen(false)}
           >
             Close
           </Button>

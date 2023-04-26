@@ -1,8 +1,13 @@
 import Button from "@mui/material/Button";
 import { Link as RouterLink, useMatch } from "react-router-dom";
 
-export default function NavButton({ label = "", url = "" }) {
-  let match = useMatch(url);
+type NavButtonProps = {
+  label: string;
+  url: string;
+};
+
+export default function NavButton({ label, url }: NavButtonProps): JSX.Element {
+  const match = useMatch(url);
   return (
     <Button
       sx={{

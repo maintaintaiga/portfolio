@@ -1,6 +1,10 @@
 import { Typography } from "@mui/material";
 
-export default function Header({ title }) {
+type HeaderProps = {
+  title: string | undefined;
+};
+
+export default function Header({ title }: HeaderProps): JSX.Element {
   return (
     <Typography
       sx={{ fontSize: "5rem", fontWeight: 400 }}

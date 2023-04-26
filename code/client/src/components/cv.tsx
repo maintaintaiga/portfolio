@@ -6,11 +6,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { ReactNode, useEffect, useState } from "react";
 
 import { htmlToPdf } from "../utils/convertHtmlToPdf";
 import { ApiAxios } from "../utils/customAxios";
+import { useNavProps } from "../utils/useNavProps";
 
 const showAdditional = false;
 
@@ -20,7 +20,38 @@ const errorProps = {
   message: "There was a problem with your request",
 };
 
-const Section = ({ title, children }) => (
+type DataProps = {
+  about: string[] | string;
+  skills: SkillsProps[];
+  courses: CoursesProps[];
+  experience: TimelineProps[];
+  additionalExperience?: TimelineProps[];
+  education: TimelineProps[];
+};
+
+type SkillsProps = {
+  label: string;
+  skills: string;
+};
+
+type CoursesProps = {
+  label: string;
+  description: string;
+};
+
+type TimelineProps = {
+  label: string;
+  date: string;
+  location?: string;
+  description: string;
+};
+
+type SectionProps = {
+  title: ReactNode;
+  children: ReactNode;
+};
+
+const Section = ({ title, children }: SectionProps): JSX.Element => (
   <Stack spacing={1} sx={{ p: 2 }}>
     <Typography sx={{ bgcolor: "#e3dbce", pl: 1 }} variant="h6" gutterBottom>
       {title}
@@ -29,14 +60,14 @@ const Section = ({ title, children }) => (
   </Stack>
 );
 
-export const CVDocument = () => {
-  const [setSnackbarProps, setIsLoading] = useOutletContext();
-  const [data, setData] = useState(null);
+export const CVDocument = (): JSX.Element => {
+  const [setSnackbarProps, setIsLoading] = useNavProps();
+  const [data, setData] = useState<DataProps | null>(null);
 
   useEffect(() => {
-    const getData = async () => {
+    const getData = async (): Promise<void> => {
       setIsLoading(true);
-      let res = await ApiAxios.get("/cv").catch((err) => {
+      const res = await ApiAxios.get("/cv").catch((err) => {
         console.error(err);
         setSnackbarProps({ ...errorProps });
       });
@@ -57,7 +88,7 @@ export const CVDocument = () => {
     }
   }, [data]);
 
-  let summary = (
+  const summary = (
     <Stack spacing={1} sx={{ m: 2, p: 2, bgcolor: "#e3dbce" }}>
       <Typography variant="h5" sx={{ color: "#4e4a43", fontWeight: 800 }}>
         Kate Ramshaw
@@ -65,7 +96,7 @@ export const CVDocument = () => {
       <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
         Web Developer | {process.env.REACT_APP_PORTFOLIO_URL}
       </Typography>
-      {Array.isArray(data?.about) ? (
+      {data && Array.isArray(data?.about) ? (
         data.about.map((el, i) => (
           <Typography key={i} variant="body2">
             {el}
@@ -77,7 +108,7 @@ export const CVDocument = () => {
     </Stack>
   );
 
-  let skillList = (
+  const skillList = (
     <List disablePadding>
       {data?.skills
         ? data.skills.map((el) => (
@@ -96,7 +127,7 @@ export const CVDocument = () => {
     </List>
   );
 
-  let courseList = (
+  const courseList = (
     <List disablePadding>
       {data?.courses
         ? data.courses.map((el) => (
@@ -115,7 +146,7 @@ export const CVDocument = () => {
     </List>
   );
 
-  let timeline = (data) =>
+  const timeline = (data: TimelineProps[] | undefined): ReactNode =>
     data
       ? data.map((el) => (
           <Stack key={el.label}>
@@ -135,22 +166,24 @@ export const CVDocument = () => {
         ))
       : null;
 
-  let employment = timeline(
-    showAdditional
-      ? data?.experience.concat(data?.additionalExperience)
-      : data?.experience
+  const employment = timeline(
+    showAdditional && data && data.additionalExperience
+      ? data.experience.concat(data.additionalExperience)
+      : data
+      ? data?.experience
+      : []
   );
 
-  let educationData = timeline(data?.education);
+  const educationData = timeline(data?.education);
 
-  let interests = (
+  const interests = (
     <Typography>
       Baking, Music, Yoga, Fitness, Photography, Travel, Piano, Languages, Video
       Gaming
     </Typography>
   );
 
-  let references = <Typography>Available upon request</Typography>;
+  const references = <Typography>Available upon request</Typography>;
 
   return (
     <Box

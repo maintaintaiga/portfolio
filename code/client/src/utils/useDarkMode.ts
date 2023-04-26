@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
-export const useDarkMode = () => {
-  const [theme, setTheme] = useState("light");
+type ThemeContextType = "light" | "dark";
+
+export const useDarkMode = (): [ThemeContextType, () => void, boolean] => {
+  const [theme, setTheme] = useState<ThemeContextType>("light");
   const [firstRender, setFirstRender] = useState(true);
   const [componentMounted, setComponentMounted] = useState(false);
-  let userPreferenceDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const userPreferenceDark = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const setMode = (mode) => {
+  const setMode = (mode: ThemeContextType): void => {
     window.localStorage.setItem("theme", mode);
     setTheme(mode);
   };
 
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     if (theme === "light") {
       setMode("dark");
     } else {
@@ -22,7 +24,7 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
-    if (localTheme) {
+    if (localTheme === "light" || localTheme === "dark") {
       setTheme(localTheme);
     } else if (userPreferenceDark) {
       setMode("dark");

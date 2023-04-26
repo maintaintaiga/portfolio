@@ -15,6 +15,7 @@ import {
   Alert,
   Backdrop,
   CircularProgress,
+  AlertColor,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -35,24 +36,32 @@ const navItems = [
   { label: "Projects", url: "projects" },
   { label: "Contact", url: "contact" },
 ];
-const defaultSnackbarProps = { open: false, severity: "info", message: "" };
+const defaultSnackbarProps: SnackbarPropTypes = {
+  open: false,
+  severity: "info",
+  message: "",
+};
+type SnackbarPropTypes = {
+  open: boolean;
+  severity: AlertColor;
+  message: string;
+};
 
-export const Navigation = (props) => {
-  const { window } = props;
+export const Navigation = (): JSX.Element => {
   const location = useLocation();
   const isCv = location.pathname.indexOf("cv") !== -1;
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [snackbarProps, setSnackbarProps] = useState({
+  const [snackbarProps, setSnackbarProps] = useState<SnackbarPropTypes>({
     ...defaultSnackbarProps,
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setSnackbarProps((prev) => ({ ...prev, open: false }));
   };
 
@@ -62,7 +71,7 @@ export const Navigation = (props) => {
         {navItems.map((item) => (
           <ListItem key={item.label} disablePadding>
             <ListItemButton
-              to={item.link}
+              to={item.url}
               component={Link}
               sx={{ textAlign: "center" }}
             >
@@ -74,9 +83,6 @@ export const Navigation = (props) => {
       </List>
     </Box>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -155,7 +161,6 @@ export const Navigation = (props) => {
           </AppBar>
           <Box component="nav">
             <Drawer
-              container={container}
               variant="temporary"
               open={mobileOpen}
               onClose={handleDrawerToggle}

@@ -30,7 +30,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": ["*.ts", "*.tsx", "**/*.ts", "**/*.tsx"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": ["error"]
       }
@@ -44,7 +44,7 @@
     "react/jsx-key": 0,
     "react-hooks/exhaustive-deps": "off",
     "no-prototype-builtins": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "no-unused-expressions": "error",
     "no-empty": "off",
     "no-constant-condition": "off",

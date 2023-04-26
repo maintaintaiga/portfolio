@@ -1,4 +1,6 @@
-const lightTheme = {
+import { createTheme } from "@mui/material";
+
+const lightTheme = createTheme({
   palette: {
     mode: "light",
     background: { default: "#fff9ef" },
@@ -9,9 +11,9 @@ const lightTheme = {
       main: "#ff782b",
     },
   },
-};
+});
 
-const darkTheme = {
+const darkTheme = createTheme({
   palette: {
     mode: "dark",
     background: { default: "#212121" },
@@ -19,6 +21,6 @@ const darkTheme = {
       main: "#dda446",
     },
   },
-};
+});
 
 export { lightTheme, darkTheme };

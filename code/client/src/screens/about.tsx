@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
 
 import Header from "../components/header";
 import { ApiAxios } from "../utils/customAxios";
+import { useNavProps } from "../utils/useNavProps";
 
 const errorProps = {
   open: true,
@@ -11,14 +12,16 @@ const errorProps = {
   message: "There was a problem with your request",
 };
 
-export const About = () => {
-  const [setSnackbarProps, setIsLoading] = useOutletContext();
-  const [data, setData] = useState(null);
+const MyLink = (): JSX.Element => <Link to="/cv" target="_blank" />;
+
+export const About = (): JSX.Element => {
+  const [setSnackbarProps, setIsLoading] = useNavProps();
+  const [data, setData] = useState<string[] | string | null>([]);
 
   useEffect(() => {
-    const getData = async () => {
+    const getData = async (): Promise<void> => {
       setIsLoading(true);
-      let res = await ApiAxios.get("/cv/about").catch((err) => {
+      const res = await ApiAxios.get("/cv/about").catch((err) => {
         console.error(err);
         setSnackbarProps({ ...errorProps });
       });
@@ -36,18 +39,12 @@ export const About = () => {
   return (
     <Stack spacing={3}>
       <Header title="About" />
-      {Array.isArray(data) ? (
+      {data && Array.isArray(data) && data.length > 0 ? (
         data.map((el, i) => <Typography key={i}>{el}</Typography>)
-      ) : (
+      ) : data && typeof data === "string" ? (
         <Typography>{data}</Typography>
-      )}
-      <Button
-        variant="outlined"
-        color="inherit"
-        to="/cv"
-        target="_blank"
-        LinkComponent={Link}
-      >
+      ) : null}
+      <Button color="inherit" variant="outlined" LinkComponent={MyLink}>
         Download Cv
       </Button>
     </Stack>

@@ -7,7 +7,7 @@ import { Contact } from "../screens/contact";
 import { Navigation } from "../components/navigation";
 import { CVDocument } from "../components/cv";
 
-export const AppRoutes = () => {
+export const AppRoutes = (): JSX.Element => {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>

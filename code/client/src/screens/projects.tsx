@@ -39,7 +39,7 @@ const exampleProjects = [
   },
 ];
 
-export const Projects = () => {
+export const Projects = (): JSX.Element => {
   return (
     <Stack spacing={4}>
       <Header title="Projects" />

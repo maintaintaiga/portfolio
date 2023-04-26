@@ -31,7 +31,10 @@
   },
   "overrides": {
     "react-scripts": {
-      "typescript": "^5"
+      "typescript": "^5",
+      "react-dev-utils": {
+        "fork-ts-checker-webpack-plugin": "^6.5.3"
+      }
     }
   },
   "scripts": {
