@@ -1,7 +1,7 @@
 /** pm2 configuration
  *    Note: The name field must not contain spaces.
  */
-module.exports = {
+const config = {
   apps: [
     {
       script: "/etc/kate/application/server/index.js",
@@ -17,6 +17,8 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
-    }
+    },
   ],
 };
+
+export default config;

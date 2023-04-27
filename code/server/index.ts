@@ -1,20 +1,20 @@
-const express = require("express");
-const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
-const cors = require("cors");
-const csurf = require("csurf");
-const cookieParser = require("cookie-parser");
+import express, { Express, ErrorRequestHandler } from "express";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import cors from "cors";
+import csurf from "csurf";
+import cookieParser from "cookie-parser";
 
-const routes = require("./routes");
-const config = require("./util/env-config");
-const getModulePath = require("./util/modulePath");
-const logger = require("./util/winston-config");
-const { getCsurfOptions, createCsurfTokenCookie } = require("./util/csrf");
+import routes from "./routes";
+import { config } from "./util/env-config";
+import getModulePath from "./util/modulePath";
+import logger from "./util/winston-config";
+import { getCsurfOptions, createCsurfTokenCookie } from "./util/csrf";
 
 const logPath = { label: getModulePath(__filename) };
 
 const runApp = () => {
-  const app = express();
+  const app: Express = express();
   const port = config.port;
 
   /** Useful for debugging */
@@ -85,7 +85,8 @@ const runApp = () => {
    *  Sometimes we want to send the text for display in the client.
    *  Set err.sendRawMessage to return the message as is.
    */
-  app.use((err, req, res, next) => {
+
+  const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     logger.error(`Api error: ${JSON.stringify(err)}`, logPath);
     if (res.headersSent) {
       return next(err);
@@ -100,7 +101,8 @@ const runApp = () => {
     } else {
       return next(err);
     }
-  });
+  };
+  app.use(errorHandler);
 
   app.listen(port, () => {
     logger.info(

@@ -1,7 +1,7 @@
-const express = require("express");
-const cvController = require("./controllers/cv");
-const contactController = require("./controllers/contact");
-const utilController = require("./controllers/util");
+import express from "express";
+import cvController from "./controllers/cv";
+import contactController from "./controllers/contact";
+import utilController from "./controllers/util";
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.use((req, res) => {
   res.status(404 /* Not Found */).json({ message: "Invalid route" });
 });
 
-module.exports = router;
+export default router;

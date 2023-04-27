@@ -1,11 +1,12 @@
-const getModulePath = require("../util/modulePath");
-const extractError = require("../util/extract-error");
-const { sendMail } = require("../util/send-mail");
-const logger = require("../util/winston-config");
+import getModulePath from "../util/modulePath";
+import extractError from "../util/extract-error";
+import { sendMail } from "../util/send-mail";
+import logger from "../util/winston-config";
+import { RequestHandler } from "express";
 
 const logPath = { label: getModulePath(__filename) };
 
-const create = async (req, res, next) => {
+const create: RequestHandler = async (req, res, next) => {
   //possible form data: name,email,message
   if (
     // Required
@@ -42,6 +43,4 @@ const create = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  create,
-};
+export { create };
