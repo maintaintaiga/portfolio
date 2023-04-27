@@ -12,6 +12,8 @@ code/client/.env*
 **/.VSCodeCounter/
 # Ignore production build files
 /**/build
+#Ignore server dist folder
+code/server/dist
 # Ignore pdf file
 code/server/cvPortfolioFile.pdf
 code/server/util/cvInfo.js
