@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Start server",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/index.js",
+      "program": "${workspaceFolder}/index.ts",
       "restart": true,
       "console": "externalTerminal",
       "internalConsoleOptions": "neverOpen",
