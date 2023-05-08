@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   AppBar,
-  Container,
   Toolbar,
   IconButton,
   Box,
@@ -16,6 +15,7 @@ import {
   Backdrop,
   CircularProgress,
   AlertColor,
+  Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -29,7 +29,7 @@ import { useTheme } from "../context/theme";
 import NavButton from "./navButton";
 import Tooltip from "./tooltip";
 
-const drawerWidth = 240;
+const drawerWidth = "80%";
 const navItems = [
   { label: "Home", url: "/" },
   { label: "About", url: "about" },
@@ -89,7 +89,7 @@ export const Navigation = (): JSX.Element => {
       {isCv ? (
         <Outlet context={[setSnackbarProps, setIsLoading]} />
       ) : (
-        <Container component="main" maxWidth="md">
+        <Box sx={{ flexGrow: 1 }}>
           <AppBar
             sx={{
               boxShadow: 0,
@@ -110,7 +110,7 @@ export const Navigation = (): JSX.Element => {
               >
                 <MenuIcon />
               </IconButton>
-              <Box sx={{ flexGrow: 1 }}>
+              <Box component={Link} to="/" sx={{ flexGrow: 1 }}>
                 <Avatar
                   sx={{ width: 50, height: 50 }}
                   alt="img"
@@ -178,11 +178,11 @@ export const Navigation = (): JSX.Element => {
               {drawer}
             </Drawer>
           </Box>
-          <Box sx={{ p: 3, mt: 1 }}>
+          <Container component="main" sx={{ p: 3, mt: 1 }} maxWidth="md">
             <Toolbar />
             <Outlet context={[setSnackbarProps, setIsLoading]} />
-          </Box>
-        </Container>
+          </Container>
+        </Box>
       )}
       <Snackbar
         open={snackbarProps.open}

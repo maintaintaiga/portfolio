@@ -96,7 +96,7 @@ export const Contact = (): JSX.Element => {
             theme.palette.mode === "dark" ? "#3e3b35" : "#ffd289",
           p: 2,
           width: "100%",
-          height: formHeight,
+          height: { xs: "auto", sm: formHeight },
           overflow: "auto",
         }}
       >
