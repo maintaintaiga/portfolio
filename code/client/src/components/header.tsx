@@ -2,14 +2,22 @@ import { Typography } from "@mui/material";
 
 type HeaderProps = {
   title: string | undefined;
+  large?: boolean | undefined;
+  noColor?: boolean | undefined;
 };
 
-export default function Header({ title }: HeaderProps): JSX.Element {
+export default function Header({
+  title,
+  large,
+  noColor,
+}: HeaderProps): JSX.Element {
   return (
     <Typography
-      sx={{ fontSize: "5rem", fontWeight: 400 }}
+      sx={{
+        fontSize: { xs: "2.5rem", sm: large ? "6rem" : "5rem" },
+      }}
       variant="h1"
-      color="primary.main"
+      color={noColor ? "default" : "primary.main"}
     >
       {title ? title : ""}
     </Typography>
