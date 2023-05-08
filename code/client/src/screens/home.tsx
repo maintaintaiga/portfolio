@@ -1,4 +1,5 @@
 import { Box, Chip, Typography, Grid } from "@mui/material";
+import Header from "../components/header";
 
 const skills = [
   "React",
@@ -17,9 +18,13 @@ const skills = [
 export const Home = (): JSX.Element => {
   return (
     <Box>
-      <Typography variant="h1">{"Frontend"}</Typography>
-      <Typography variant="h1">{"Developer"}</Typography>
-      <Typography variant="h4" color="textSecondary">
+      <Header title="Front End" large noColor />
+      <Header title="Developer" large noColor />
+      <Typography
+        variant="h4"
+        sx={{ fontSize: { xs: "1.5rem", sm: "2.125rem" } }}
+        color="textSecondary"
+      >
         {"// Kate Ramshaw"}
       </Typography>
       <Box sx={{ mt: 5 }}>
