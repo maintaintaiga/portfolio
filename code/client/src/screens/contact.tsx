@@ -26,6 +26,7 @@ const initialData = { name: "", email: "", message: "" };
 
 export const Contact = (): JSX.Element => {
   const [formData, setFormData] = useState<FormProps>(initialData);
+  const [formError, setFormError] = useState<FormProps>(initialData);
   const [setSnackbarProps, setIsLoading] = useNavProps();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -56,6 +57,26 @@ export const Contact = (): JSX.Element => {
     const { name, value } = e.target;
     localData[name as keyof FormProps] = value;
     setFormData(localData);
+  };
+
+  const checkFormData = (): void => {
+    try {
+      const localErrors: FormProps = { ...initialData };
+      const localFormData = { ...formData };
+      Object.entries(localFormData).forEach((el) => {
+        localErrors[el[0] as keyof FormProps] =
+          el[1].length < 1 ? `The ${el[0]} field can't be empty` : "";
+      });
+      if (Object.values(localErrors).every((el) => el.length === 0)) {
+        setFormError(localErrors);
+        handleSendForm();
+      } else {
+        setFormError(localErrors);
+      }
+    } catch (err) {
+      console.log(err);
+      setSnackbarProps({ ...errorProps });
+    }
   };
 
   const handleSendForm = async (): Promise<void> => {
@@ -105,14 +126,18 @@ export const Contact = (): JSX.Element => {
             <FormControl
               key={el}
               label={el}
-              value={formData[el as keyof FormProps]}
+              value={formData ? formData[el as keyof FormProps] : ""}
               onChange={handleUpdateForm}
               multiline={el === "message"}
+              error={Boolean(
+                formError ? formError[el as keyof FormProps] : false
+              )}
+              helperText={formError ? formError[el as keyof FormProps] : ""}
             />
           ))}
         </Stack>
       </Paper>
-      <Button onClick={handleSendForm} color="inherit" variant="outlined">
+      <Button onClick={checkFormData} color="inherit" variant="outlined">
         Submit
       </Button>
     </Stack>
