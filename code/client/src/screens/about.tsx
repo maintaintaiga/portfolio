@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Skeleton, Stack, Typography } from "@mui/material";
 
 import Header from "../components/header";
 import { ApiAxios } from "../utils/customAxios";
@@ -43,7 +43,20 @@ export const About = (): JSX.Element => {
         data.map((el, i) => <Typography key={i}>{el}</Typography>)
       ) : data && typeof data === "string" ? (
         <Typography>{data}</Typography>
-      ) : null}
+      ) : (
+        <>
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            sx={{ height: 80 }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            sx={{ height: 120 }}
+          />
+        </>
+      )}
       <Button color="inherit" variant="outlined" LinkComponent={MyLink}>
         Download Cv
       </Button>
