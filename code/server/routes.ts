@@ -1,7 +1,7 @@
 import express from "express";
-import cvController from "./controllers/cv";
-import contactController from "./controllers/contact";
-import utilController from "./controllers/util";
+import * as cvController from "./controllers/cv";
+import * as contactController from "./controllers/contact";
+import * as utilController from "./controllers/util";
 
 const router = express.Router();
 
