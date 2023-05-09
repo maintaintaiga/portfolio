@@ -16,6 +16,7 @@ import {
   CircularProgress,
   AlertColor,
   Container,
+  Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -24,8 +25,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useTheme } from "../context/theme";
 
+import { useTheme } from "../context/theme";
 import NavButton from "./navButton";
 import Tooltip from "./tooltip";
 
@@ -157,6 +158,27 @@ export const Navigation = (): JSX.Element => {
                   <LinkedInIcon />
                 </IconButton>
               </Tooltip>
+              <Tooltip title="Download CV">
+                <Button
+                  component={Link}
+                  to="/cv"
+                  target="_blank"
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    ml: 1,
+                    bgcolor: "#01579b",
+                    color: "#e0e0e0",
+                    "&:hover": {
+                      bgcolor: "#01579b",
+                      color: "#e0e0e0",
+                      opacity: 0.7,
+                    },
+                  }}
+                >
+                  Get CV
+                </Button>
+              </Tooltip>
             </Toolbar>
           </AppBar>
           <Box component="nav">
@@ -188,12 +210,12 @@ export const Navigation = (): JSX.Element => {
         open={snackbarProps.open}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         autoHideDuration={3000}
+        onClose={handleClose}
       >
         <Alert
           severity={snackbarProps.severity}
           variant="filled"
           sx={{ width: "100%" }}
-          onClose={handleClose}
         >
           {snackbarProps.message}
         </Alert>
