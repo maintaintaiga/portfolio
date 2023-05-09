@@ -1,4 +1,11 @@
-import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 
 import Tooltip from "../components/tooltip";
@@ -27,6 +34,7 @@ const exampleProjects = [
       "/screenshots/orchidana-assignment-filters.png",
       "/screenshots/orchidana-group-permissions.png",
     ],
+    logo: "orchidanaLogo.png",
   },
   {
     name: "Food Explorer",
@@ -36,6 +44,7 @@ const exampleProjects = [
       is deployed onto a public cloud provider. The app is used to search nutrition
       data and make it possible for users to track their nutrients.`,
     img: ["/screenshots/coming-soon.png"],
+    logo: "foodExplorerLogo.png",
   },
 ];
 
@@ -52,9 +61,28 @@ export const Projects = (): JSX.Element => {
                   <Carousel images={el.img} />
                 ) : null}
                 <Box sx={{ p: 1 }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {el.name}
-                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      mb: 1,
+                    }}
+                  >
+                    <Avatar
+                      alt="project logo"
+                      src={el.logo}
+                      variant="rounded"
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        bgcolor: "white",
+                      }}
+                    />
+                    <Typography variant="h5" component="div">
+                      {el.name}
+                    </Typography>
+                  </Box>
                   <Typography variant="body2" color="text.secondary">
                     {el.description}
                   </Typography>
