@@ -12,8 +12,6 @@ const errorProps = {
   message: "There was a problem with your request",
 };
 
-const MyLink = (): JSX.Element => <Link to="/cv" target="_blank" />;
-
 export const About = (): JSX.Element => {
   const [setSnackbarProps, setIsLoading] = useNavProps();
   const [data, setData] = useState<string[] | string | null>([]);
@@ -57,7 +55,13 @@ export const About = (): JSX.Element => {
           />
         </>
       )}
-      <Button color="inherit" variant="outlined" LinkComponent={MyLink}>
+      <Button
+        color="inherit"
+        variant="outlined"
+        component={Link}
+        to="/cv"
+        target="_blank"
+      >
         Download Cv
       </Button>
     </Stack>
