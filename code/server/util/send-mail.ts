@@ -1,21 +1,33 @@
-const mailjet = require("node-mailjet");
+import mailjet from "node-mailjet";
 
-const config = require("./env-config");
-const getModulePath = require("./modulePath");
-const logger = require("./winston-config");
+import { config } from "./env-config";
+import getModulePath from "./modulePath";
+import logger from "./winston-config";
 
 const logPath = { label: getModulePath(__filename) };
 
-const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
+const sendMail = async (
+  mailTo: string,
+  mailSubject: string,
+  mailText: string,
+  mailHtml: string
+): Promise<boolean> => {
   try {
-    if (config.emailEnabled === true) {
+    if (
+      config.emailEnabled === true &&
+      config.emailServiceUser &&
+      config.emailServicePassword
+    ) {
       //send mail
       const mailjetClient = mailjet.apiConnect(
         config.emailServiceUser,
         config.emailServicePassword
       );
 
-      if (config.userEmailAddressOverride.length > 0) {
+      if (
+        config.userEmailAddressOverride &&
+        config.userEmailAddressOverride.length > 0
+      ) {
         mailTo = config.userEmailAddressOverride;
       }
 
@@ -41,10 +53,10 @@ const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
         .post("send", { version: "v3.1" })
         .request({ Messages: [message] });
 
-      if (!result || result.err) {
+      if (!result || result?.response?.status !== 200) {
         logger.error(
           `Send mail failed. To: ${mailTo}. Subject: ${mailSubject}`,
-          result.err,
+          result.response.statusText,
           logPath
         );
         return false;
@@ -55,6 +67,8 @@ const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
         );
         return true;
       }
+    } else {
+      return false;
     }
   } catch (err) {
     logger.error(
@@ -66,4 +80,4 @@ const sendMail = async (mailTo, mailSubject, mailText, mailHtml) => {
   }
 };
 
-module.exports = { sendMail };
+export { sendMail };
