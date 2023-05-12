@@ -13,6 +13,8 @@ import { ApiAxios } from "../utils/customAxios";
 import { useNavProps } from "../utils/useNavProps";
 
 const showAdditional = false;
+const isGeneral = false;
+const includeCourse = true;
 
 const errorProps = {
   open: true,
@@ -22,7 +24,9 @@ const errorProps = {
 
 type DataProps = {
   about: string[] | string;
+  aboutGeneral: string[] | string;
   skills: SkillsProps[];
+  skillsGeneral: SkillsProps[];
   courses: CoursesProps[];
   experience: TimelineProps[];
   additionalExperience?: TimelineProps[];
@@ -31,7 +35,7 @@ type DataProps = {
 
 type SkillsProps = {
   label: string;
-  skills: string;
+  skills?: string;
 };
 
 type CoursesProps = {
@@ -44,6 +48,7 @@ type TimelineProps = {
   date: string;
   location?: string;
   description: string;
+  descriptionGeneral: string;
 };
 
 type SectionProps = {
@@ -88,7 +93,7 @@ export const CVDocument = (): JSX.Element => {
     }
   }, [data]);
 
-  const summary = (
+  const summary = (about: string | string[]): JSX.Element => (
     <Stack spacing={1} sx={{ m: 2, p: 2, bgcolor: "#e3dbce" }}>
       <Typography variant="h5" sx={{ color: "#4e4a43", fontWeight: 800 }}>
         Kate Ramshaw
@@ -96,22 +101,22 @@ export const CVDocument = (): JSX.Element => {
       <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
         Web Developer | {process.env.REACT_APP_PORTFOLIO_URL}
       </Typography>
-      {data && Array.isArray(data?.about) ? (
-        data.about.map((el, i) => (
+      {about && Array.isArray(about) ? (
+        about.map((el, i) => (
           <Typography key={i} variant="body2">
             {el}
           </Typography>
         ))
       ) : (
-        <Typography variant="body2">{data?.about}</Typography>
+        <Typography variant="body2">{about}</Typography>
       )}
     </Stack>
   );
 
-  const skillList = (
+  const skillList = (skills: SkillsProps[] | undefined): JSX.Element => (
     <List disablePadding>
-      {data?.skills
-        ? data.skills.map((el) => (
+      {skills
+        ? skills.map((el) => (
             <ListItem key={el.label} disablePadding>
               <ListItemText
                 primaryTypographyProps={{
@@ -119,7 +124,7 @@ export const CVDocument = (): JSX.Element => {
                   fontWeight: 500,
                 }}
                 primary={el.label}
-                secondary={el.skills}
+                secondary={el.skills ?? ""}
               />
             </ListItem>
           ))
@@ -160,7 +165,9 @@ export const CVDocument = (): JSX.Element => {
               <Typography sx={{ fontSize: 14 }}>{el.location}</Typography>
             ) : null}
             <Typography variant="body2" color="textSecondary">
-              {el.description}
+              {isGeneral && el.descriptionGeneral
+                ? el.descriptionGeneral
+                : el.description}
             </Typography>
           </Stack>
         ))
@@ -196,9 +203,13 @@ export const CVDocument = (): JSX.Element => {
       }}
     >
       <div id="cv1">
-        {summary}
-        <Section title="Skills">{skillList}</Section>
-        <Section title="Courses">{courseList}</Section>
+        {summary(
+          isGeneral && data ? data.aboutGeneral : data ? data.about : ""
+        )}
+        <Section title="Skills">
+          {skillList(isGeneral ? data?.skillsGeneral : data?.skills)}
+        </Section>
+        {includeCourse ? <Section title="Courses">{courseList}</Section> : null}
       </div>
       <div id="cv2">
         <Section title="Experience">{employment}</Section>
