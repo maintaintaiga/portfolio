@@ -29,49 +29,31 @@
     The production level should be set to: warn.
       Error and warn level messages will be reported.
  */
-const config = require("./env-config");
+import { config } from "./env-config";
+import { format, createLogger, addColors, transports } from "winston";
 
-//const { createLogger, format, transports } = require("winston");
-const w = require("winston");
+const { combine, timestamp, align, printf, colorize } = format;
 
-const { combine, timestamp, align, printf, colorize } = w.format;
+const SymbolType: unique symbol = Symbol();
 
 /* Find an Error object in the logger parameters and
    Add it onto the Info object.
 */
-const addError = w.format((info) => {
-  if (!info.error) {
-    const splat = info[Symbol.for("splat")] || [];
-    info.error = splat.find((obj) => obj instanceof Error);
-
-    /* Winston concatenates the error message onto the main message.
-     Chop the error message off the main message.
-  */
-    if (info.error && info.error.message && info.message) {
-      if (info.message.endsWith(info.error.message))
-        info.message = info.message.substr(
-          0,
-          info.message.length - info.error.message.length
-        );
-    }
-  }
-  return info;
-});
 
 /* If there is an error object, add a stack object onto 
    the Info object but only if not already got one.
  */
-const addStack = w.format((info) => {
+const addStack = format((info) => {
   if (!info.stack && info.error && info.error.stack) {
     info.stack = info.error.stack;
   }
   return info;
 });
 
-const addLabel = w.format((info) => {
+const addLabel = format((info) => {
   if (!info.label) {
-    const splat = info[Symbol.for("splat")] || [];
-    const labelObj = splat.find((obj) => obj.label);
+    const splat = info[Symbol.for("splat") as any] || [];
+    const labelObj = splat.find((obj: any) => obj.label);
     if (labelObj && labelObj.label) {
       info.label = labelObj.label;
     }
@@ -79,20 +61,7 @@ const addLabel = w.format((info) => {
   return info;
 });
 
-const addMeta = w.format((info) => {
-  if (!info.meta) {
-    const splat = info[Symbol.for("splat")] || [];
-    const metaObj = splat.find((obj) => obj.meta);
-    if (metaObj) {
-      info.metaString = JSON.stringify(metaObj.meta);
-    }
-  } else {
-    info.metaString = JSON.stringify(info.meta);
-  }
-  return info;
-});
-
-const addLevel = w.format((info) => {
+const addLevel = format((info) => {
   if (info.level) {
     info.level = info.level.toUpperCase();
   }
@@ -126,28 +95,21 @@ let options = {
 };
 
 // instantiate a new Winston Logger with the settings defined above
-const logger = w.createLogger({
+const logger = createLogger({
   level: config.logLevel,
-  format: combine(
-    timestamp(),
-    addLevel(),
-    addError(),
-    addStack(),
-    addLabel(),
-    addMeta()
-  ),
+  format: combine(timestamp(), addLevel(), addStack(), addLabel()),
   handleExceptions: true,
   exitOnError: false, // do not exit on handled exceptions
   transports:
     process.env.NODE_ENV !== "test"
       ? [
-          new w.transports.File(options.file),
-          new w.transports.Console(options.console),
+          new transports.File(options.file),
+          new transports.Console(options.console),
         ]
-      : [new w.transports.File(options.file)],
+      : [new transports.File(options.file)],
 });
 
 // Make debug messages stand out in the console
-w.addColors({ debug: "bold yellow redBG" });
+addColors({ debug: "bold yellow redBG" });
 
-module.exports = logger;
+export default logger;

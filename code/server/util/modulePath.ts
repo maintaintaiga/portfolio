@@ -1,6 +1,6 @@
-const path = require("path");
+import path from "path";
 
-const getModulePath = (fullPath) => {
+const getModulePath = (fullPath: string) => {
   const pathParts = fullPath.split(path.sep);
   let partCount = pathParts.length;
   let startIndex = 0;
@@ -26,4 +26,4 @@ const getModulePath = (fullPath) => {
   }
   return trailingPath;
 };
-module.exports = getModulePath;
+export default getModulePath;
