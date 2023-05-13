@@ -5,6 +5,7 @@ import {
   ListItemText,
   Stack,
   Typography,
+  Grid,
 } from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -12,9 +13,10 @@ import { htmlToPdf } from "../utils/convertHtmlToPdf";
 import { ApiAxios } from "../utils/customAxios";
 import { useNavProps } from "../utils/useNavProps";
 
-const showAdditional = false;
+const showAdditional = true;
 const isGeneral = false;
-const includeCourse = true;
+const generalSize = [260, 250];
+//todo: fix size for not general.
 
 const errorProps = {
   open: true,
@@ -25,10 +27,12 @@ const errorProps = {
 type DataProps = {
   about: string[] | string;
   aboutGeneral: string[] | string;
+  interests: string[];
   skills: SkillsProps[];
   skillsGeneral: SkillsProps[];
   courses: CoursesProps[];
   experience: TimelineProps[];
+  projects: TimelineProps[];
   additionalExperience?: TimelineProps[];
   education: TimelineProps[];
 };
@@ -41,6 +45,7 @@ type SkillsProps = {
 type CoursesProps = {
   label: string;
   description: string;
+  general?: boolean;
 };
 
 type TimelineProps = {
@@ -57,7 +62,7 @@ type SectionProps = {
 };
 
 const Section = ({ title, children }: SectionProps): JSX.Element => (
-  <Stack spacing={1} sx={{ p: 2 }}>
+  <Stack spacing={1} sx={{ pl: 2, pr: 2, pt: 1, pb: 1 }}>
     <Typography sx={{ bgcolor: "#e3dbce", pl: 1 }} variant="h6" gutterBottom>
       {title}
     </Typography>
@@ -89,7 +94,7 @@ export const CVDocument = (): JSX.Element => {
 
   useEffect(() => {
     if (data) {
-      htmlToPdf(["cv1", "cv2"]);
+      htmlToPdf(["cv1", "cv2"], isGeneral ? generalSize : undefined);
     }
   }, [data]);
 
@@ -98,9 +103,11 @@ export const CVDocument = (): JSX.Element => {
       <Typography variant="h5" sx={{ color: "#4e4a43", fontWeight: 800 }}>
         Kate Ramshaw
       </Typography>
-      <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
-        Web Developer | {process.env.REACT_APP_PORTFOLIO_URL}
-      </Typography>
+      {!isGeneral ? (
+        <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
+          Web Developer | {process.env.REACT_APP_PORTFOLIO_URL}
+        </Typography>
+      ) : null}
       {about && Array.isArray(about) ? (
         about.map((el, i) => (
           <Typography key={i} variant="body2">
@@ -113,10 +120,10 @@ export const CVDocument = (): JSX.Element => {
     </Stack>
   );
 
-  const skillList = (skills: SkillsProps[] | undefined): JSX.Element => (
-    <List disablePadding>
-      {skills
-        ? skills.map((el) => (
+  const skillList = (
+    <List disablePadding dense={isGeneral}>
+      {data?.skills
+        ? data.skills.map((el) => (
             <ListItem key={el.label} disablePadding>
               <ListItemText
                 primaryTypographyProps={{
@@ -132,21 +139,39 @@ export const CVDocument = (): JSX.Element => {
     </List>
   );
 
+  const skillsGeneral = (
+    <Grid container spacing={1}>
+      {data?.skillsGeneral
+        ? data?.skillsGeneral.map((el) => (
+            <Grid item key={el.label} xs={6}>
+              <Typography
+                sx={{ fontStyle: "italic", fontWeight: 500, fontSize: 14 }}
+              >
+                {el.label}
+              </Typography>
+            </Grid>
+          ))
+        : null}
+    </Grid>
+  );
+
   const courseList = (
     <List disablePadding>
       {data?.courses
-        ? data.courses.map((el) => (
-            <ListItem key={el.label} disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  fontStyle: "italic",
-                  fontWeight: 500,
-                }}
-                primary={el.label}
-                secondary={el.description}
-              />
-            </ListItem>
-          ))
+        ? data.courses
+            .filter((el) => (isGeneral ? el.general : el))
+            .map((el) => (
+              <ListItem key={el.label} disablePadding>
+                <ListItemText
+                  primaryTypographyProps={{
+                    fontStyle: "italic",
+                    fontWeight: 500,
+                  }}
+                  primary={el.label}
+                  secondary={el.description}
+                />
+              </ListItem>
+            ))
         : null}
     </List>
   );
@@ -162,9 +187,11 @@ export const CVDocument = (): JSX.Element => {
               <Typography color="textSecondary">{el.date}</Typography>
             </Box>
             {el.location ? (
-              <Typography sx={{ fontSize: 14 }}>{el.location}</Typography>
+              <Typography color="textSecondary" sx={{ fontSize: 14 }}>
+                {el.location}
+              </Typography>
             ) : null}
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2">
               {isGeneral && el.descriptionGeneral
                 ? el.descriptionGeneral
                 : el.description}
@@ -183,11 +210,28 @@ export const CVDocument = (): JSX.Element => {
 
   const educationData = timeline(data?.education);
 
+  const projects = timeline(data?.projects);
+
   const interests = (
     <Typography>
-      Baking, Music, Yoga, Fitness, Photography, Travel, Piano, Languages, Video
-      Gaming
+      {data?.interests ? data.interests.join(", ") : null}
     </Typography>
+  );
+
+  const interestsGeneral = (
+    <Grid container spacing={1}>
+      {data?.interests
+        ? data?.interests.map((el) => (
+            <Grid item key={el} xs={6}>
+              <Typography
+                sx={{ fontStyle: "italic", fontWeight: 500, fontSize: 14 }}
+              >
+                {el}
+              </Typography>
+            </Grid>
+          ))
+        : null}
+    </Grid>
   );
 
   const references = <Typography>Available upon request</Typography>;
@@ -207,14 +251,18 @@ export const CVDocument = (): JSX.Element => {
           isGeneral && data ? data.aboutGeneral : data ? data.about : ""
         )}
         <Section title="Skills">
-          {skillList(isGeneral ? data?.skillsGeneral : data?.skills)}
+          {isGeneral ? skillsGeneral : skillList}
         </Section>
-        {includeCourse ? <Section title="Courses">{courseList}</Section> : null}
+        {isGeneral ? <Section title="Experience">{employment}</Section> : null}
       </div>
       <div id="cv2">
-        <Section title="Experience">{employment}</Section>
+        {!isGeneral ? <Section title="Experience">{employment}</Section> : null}
+        {isGeneral ? <Section title="Projects">{projects}</Section> : null}
         <Section title="Education">{educationData}</Section>
-        <Section title="Interests">{interests}</Section>
+        <Section title="Courses">{courseList}</Section>
+        <Section title="Interests">
+          {isGeneral ? interestsGeneral : interests}
+        </Section>
         <Section title="References">{references}</Section>
       </div>
     </Box>
