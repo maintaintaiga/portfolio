@@ -13,8 +13,9 @@ import { htmlToPdf } from "../utils/convertHtmlToPdf";
 import { ApiAxios } from "../utils/customAxios";
 import { useNavProps } from "../utils/useNavProps";
 
+const isNameBlind = true;
 const showAdditional = true;
-const isGeneral = false;
+const isGeneral = true;
 const generalSize = [260, 250];
 //todo: fix size for not general.
 
@@ -101,7 +102,7 @@ export const CVDocument = (): JSX.Element => {
   const summary = (about: string | string[]): JSX.Element => (
     <Stack spacing={1} sx={{ m: 2, p: 2, bgcolor: "#e3dbce" }}>
       <Typography variant="h5" sx={{ color: "#4e4a43", fontWeight: 800 }}>
-        Kate Ramshaw
+        {isNameBlind ? "Personal Statement" : "Kate Ramshaw"}
       </Typography>
       {!isGeneral ? (
         <Typography color="textSecondary" sx={{ fontWeight: "bold" }}>
