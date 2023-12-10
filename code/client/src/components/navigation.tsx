@@ -158,27 +158,29 @@ export const Navigation = (): JSX.Element => {
                   <LinkedInIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Download CV">
-                <Button
-                  component={Link}
-                  to="/cv"
-                  target="_blank"
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    ml: 1,
-                    bgcolor: "#01579b",
-                    color: "#e0e0e0",
-                    "&:hover": {
+              {process.env.REACT_APP_INCLUDECV === "true" ? (
+                <Tooltip title="Download CV">
+                  <Button
+                    component={Link}
+                    to="/cv"
+                    target="_blank"
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      ml: 1,
                       bgcolor: "#01579b",
                       color: "#e0e0e0",
-                      opacity: 0.7,
-                    },
-                  }}
-                >
-                  Get CV
-                </Button>
-              </Tooltip>
+                      "&:hover": {
+                        bgcolor: "#01579b",
+                        color: "#e0e0e0",
+                        opacity: 0.7,
+                      },
+                    }}
+                  >
+                    Get CV
+                  </Button>
+                </Tooltip>
+              ) : null}
             </Toolbar>
           </AppBar>
           <Box component="nav">

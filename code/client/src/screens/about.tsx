@@ -55,15 +55,17 @@ export const About = (): JSX.Element => {
           />
         </>
       )}
-      <Button
-        color="inherit"
-        variant="outlined"
-        component={Link}
-        to="/cv"
-        target="_blank"
-      >
-        Download Cv
-      </Button>
+      {process.env.REACT_APP_INCLUDECV === "true" ? (
+        <Button
+          color="inherit"
+          variant="outlined"
+          component={Link}
+          to="/cv"
+          target="_blank"
+        >
+          Download Cv
+        </Button>
+      ) : null}
     </Stack>
   );
 };
