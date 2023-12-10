@@ -3,6 +3,7 @@ import extractError from "../util/extract-error";
 import { sendMail } from "../util/send-mail";
 import logger from "../util/winston-config";
 import { RequestHandler } from "express";
+import { config } from "../util/env-config";
 
 const logPath = { label: getModulePath(__filename) };
 
@@ -23,7 +24,7 @@ const create: RequestHandler = async (req, res, next) => {
       //send email to myself with form data...
       let data = `<div><h2>Name</h2><p>${req.body.name}</p><h2>Email</h2><p>${req.body.email}</p><h2>Message</h2><p>${req.body.message}</p></div>`;
       let result = await sendMail(
-        "kate.ramshaw@talktalk.net",
+        config.emailToAddress,
         "Portfolio Message",
         "here",
         data
