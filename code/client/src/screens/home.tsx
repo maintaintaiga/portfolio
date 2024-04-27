@@ -4,15 +4,20 @@ import Header from "../components/header";
 const skills = [
   "React",
   "React Native",
+  "Vue.JS",
   "Node.JS",
   "Docker",
   "Ansible",
   "Git",
-  "Jira",
   "MongoDB",
-  "JS",
+  "Javascript",
+  "Typescript",
   "HTML",
   "CSS",
+  "PHP",
+  "Laravel",
+  "AWS",
+  "Plesk",
 ];
 
 export const Home = (): JSX.Element => {
