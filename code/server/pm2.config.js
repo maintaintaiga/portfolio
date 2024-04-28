@@ -1,7 +1,4 @@
-/** pm2 configuration
- *    Note: The name field must not contain spaces.
- */
-const config = {
+module.exports = {
   apps: [
     {
       script: "/etc/kate/application/server/index.js",
