@@ -33,6 +33,17 @@ npm start
 npm run build
 ```
 
+## Build For Production
+
+client
+npm run build
+copy dist/ to your server
+
+server
+npm run build
+npm run postbuild
+copy build/ to server
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
