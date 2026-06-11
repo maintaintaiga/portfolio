@@ -11,13 +11,7 @@ TODO
 ## Purpose
 
 ```bash
-TODO
-```
-
-## Skills Learned
-
-```bash
-TODO
+A digital CV to showcase my personal projects and skills.
 ```
 
 ## Usage
@@ -32,6 +26,16 @@ npm start
 # Build client for deployment
 npm run build
 ```
+
+## TODO
+
+client
+npm run build
+copy dist/ to your server
+
+server
+npx tsc
+copy built files +...
 
 ## License
 

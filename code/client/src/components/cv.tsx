@@ -15,7 +15,7 @@ import { useNavProps } from "../utils/useNavProps";
 
 const isNameBlind = true;
 const showAdditional = true;
-const isGeneral = true;
+const isGeneral = false;
 const generalSize = [260, 250];
 //todo: fix size for not general.
 
@@ -205,8 +205,8 @@ export const CVDocument = (): JSX.Element => {
     showAdditional && data && data.additionalExperience
       ? data.experience.concat(data.additionalExperience)
       : data
-      ? data?.experience
-      : []
+        ? data?.experience.slice(0, 2)
+        : [],
   );
 
   const educationData = timeline(data?.education);
@@ -249,7 +249,7 @@ export const CVDocument = (): JSX.Element => {
     >
       <div id="cv1">
         {summary(
-          isGeneral && data ? data.aboutGeneral : data ? data.about : ""
+          isGeneral && data ? data.aboutGeneral : data ? data.about : "",
         )}
         <Section title="Skills">
           {isGeneral ? skillsGeneral : skillList}

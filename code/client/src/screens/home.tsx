@@ -1,23 +1,31 @@
 import { Box, Chip, Typography, Grid } from "@mui/material";
 import Header from "../components/header";
+import { generateShades } from "../utils/generateShades";
 
-const skills = [
+const feskills = [
+  "Responsive Design",
+  "html",
+  "css",
+  "Tailwind CSS",
+  "Javascript",
   "React",
-  "React Native",
   "Vue.JS",
+  "BDD",
+  "Figma",
+];
+
+const beskills = [
+  "REST",
   "Node.JS",
-  "Docker",
   "Ansible",
   "Git",
   "MongoDB",
-  "Javascript",
-  "Typescript",
-  "HTML",
-  "CSS",
+  "MySQL",
   "PHP",
   "Laravel",
   "AWS",
   "Plesk",
+  "Linux",
 ];
 
 export const Home = (): JSX.Element => {
@@ -30,15 +38,34 @@ export const Home = (): JSX.Element => {
         sx={{ fontSize: { xs: "1.5rem", sm: "2.125rem" } }}
         color="textSecondary"
       >
-        {"// Kate Ramshaw"}
+        {"Kate Ramshaw"}
       </Typography>
       <Box sx={{ mt: 5 }}>
         <Grid container spacing={3}>
-          {skills.map((el) => (
+          {feskills.map((el) => (
             <Grid item key={el}>
               <Chip
-                color="secondary"
-                sx={{ fontWeight: 700, p: 1 }}
+                sx={{
+                  fontWeight: 700,
+                  p: 1,
+                  bgcolor: (theme) =>
+                    generateShades(theme.palette.secondary.main, 30),
+                }}
+                label={el}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        <Grid container spacing={3} sx={{ mt: 1 }}>
+          {beskills.map((el) => (
+            <Grid item key={el}>
+              <Chip
+                sx={{
+                  fontWeight: 700,
+                  p: 1,
+                  bgcolor: (theme) =>
+                    generateShades(theme.palette.secondary.main, 30),
+                }}
                 label={el}
               />
             </Grid>
