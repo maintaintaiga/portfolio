@@ -166,16 +166,7 @@ export const Navigation = (): JSX.Element => {
                     target="_blank"
                     variant="contained"
                     size="large"
-                    sx={{
-                      ml: 1,
-                      bgcolor: "#01579b",
-                      color: "#e0e0e0",
-                      "&:hover": {
-                        bgcolor: "#01579b",
-                        color: "#e0e0e0",
-                        opacity: 0.7,
-                      },
-                    }}
+                    color="primary"
                   >
                     Get CV
                   </Button>

@@ -1,6 +1,6 @@
 import {
-  Avatar,
   Box,
+  Container,
   Grid,
   IconButton,
   Stack,
@@ -11,8 +11,6 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import Tooltip from "../components/tooltip";
 import Header from "../components/header";
 import { Carousel } from "../components/carousel";
-
-const includeLink = false;
 
 const exampleProjects = [
   {
@@ -37,12 +35,24 @@ const exampleProjects = [
     logo: "orchidanaLogo.png",
   },
   {
+    name: "Messaging App",
+    link: "https://message-app.kate-ramshaw.orchidana.com/",
+    description:
+      "A Next.js redux app, utilising a firebase database to enable realtime messaging.",
+    img: ["/screenshots/messaging-app.png"],
+    logo: "",
+  },
+  {
+    name: "Movie App",
+    link: "https://movie-app-rho-six-45.vercel.app/",
+    description:
+      "A simple react Next.js app built using only html and css. Made use of TMDB api to generate data.",
+    img: ["/screenshots/movie-app.png"],
+    logo: "",
+  },
+  {
     name: "Food Explorer",
-    link: "https://food-explorer.com",
-    description: `Food explorer is a mobile first application utilizing React Native, Expo, React and
-      Node.js throughout. A SQLite database is used to store data. The application 
-      is deployed onto a public cloud provider. The app is used to search nutrition
-      data and make it possible for users to track their nutrients.`,
+    description: `An android app built with React native and expo. Utilises a Sqlite database. `,
     img: ["/screenshots/coming-soon.png"],
     logo: "foodExplorerLogo.png",
   },
@@ -50,57 +60,47 @@ const exampleProjects = [
 
 export const Projects = (): JSX.Element => {
   return (
-    <Stack spacing={4}>
-      <Header title="Projects" />
-      <Box>
-        <Grid container spacing={3} justifyContent="flex-start">
-          {exampleProjects.map((el) => (
-            <Grid key={el.name} item xs={12} md={6}>
-              <Box sx={{ border: 2 }}>
-                {el.img && el.img.length > 0 ? (
-                  <Carousel images={el.img} />
-                ) : null}
-                <Box sx={{ p: 1 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                    }}
-                  >
-                    <Avatar
-                      alt="project logo"
-                      src={el.logo}
-                      variant="rounded"
-                      sx={{
-                        width: 32,
-                        height: 32,
-                        bgcolor: "white",
-                      }}
-                    />
+    <Container maxWidth="sm">
+      <Stack spacing={4}>
+        <Header title="Projects" />
+        <Box>
+          <Grid container spacing={8} justifyContent="flex-start">
+            {exampleProjects.map((el) => (
+              <Grid key={el.name} item xs={12}>
+                <Box>
+                  {el.img && el.img.length > 0 ? (
+                    <Carousel images={el.img} />
+                  ) : null}
+                  <Box sx={{ p: 1 }}>
                     <Typography variant="h5" component="div">
                       {el.name}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {el.description}
+                    </Typography>
                   </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    {el.description}
-                  </Typography>
+                  {el?.link ? (
+                    <Box sx={{ py: 0, px: 2 }}>
+                      <Tooltip title={`Go to ${el.name}`}>
+                        <IconButton
+                          size="small"
+                          edge="start"
+                          aria-label={el.link}
+                          onClick={(): Window | null =>
+                            window.open(el.link, "_blank")
+                          }
+                        >
+                          <LaunchIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  ) : null}
                 </Box>
-                {includeLink ? (
-                  <Box sx={{ py: 0 }}>
-                    <Tooltip title={`Go to ${el.name}`}>
-                      <IconButton edge="start" href={el.link} target="_blank">
-                        <LaunchIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                ) : null}
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Stack>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Stack>
+    </Container>
   );
 };

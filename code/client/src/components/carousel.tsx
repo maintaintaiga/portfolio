@@ -52,7 +52,7 @@ export const Carousel = ({ images }: CarouselProps): JSX.Element => {
 
   return (
     <>
-      <ImageList sx={{ height: 250, m: 0 }} cols={1} gap={0}>
+      <ImageList sx={{ minHeight: 250, m: 0 }} cols={1} gap={0}>
         <ImageListItem>
           <img alt="screenshot" src={images[active]} />
           <ImageListItemBar
