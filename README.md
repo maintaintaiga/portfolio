@@ -11,13 +11,7 @@ TODO
 ## Purpose
 
 ```bash
-TODO
-```
-
-## Skills Learned
-
-```bash
-TODO
+A digital CV to showcase my personal projects and skills.
 ```
 
 ## Usage
