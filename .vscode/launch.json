@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Start Client (npm start)",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/code/client",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start"],
+      "console": "integratedTerminal",
+      "presentation": { "panel": "dedicated" }
+    },
+    {
+      "name": "Open Chrome (Client)",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/code/client/src",
+      "userDataDir": "${workspaceFolder}/.vscode/chrome"
+    },
+    {
+      "name": "Debug Server (ts-node)",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/code/server",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["-r", "ts-node/register", "--enable-source-maps"],
+      "program": "${workspaceFolder}/code/server/index.ts",
+      "envFile": "${workspaceFolder}/code/server/.env.development",
+      "autoAttachChildProcesses": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": { "panel": "dedicated" }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Full Stack (Server + Client)",
+      "configurations": ["Debug Server (ts-node)", "Start Client (npm start)"]
+    },
+    {
+      "name": "Run Full Stack + Chrome",
+      "configurations": [
+        "Debug Server (ts-node)",
+        "Start Client (npm start)",
+        "Open Chrome (Client)"
+      ]
+    }
+  ]
+}
