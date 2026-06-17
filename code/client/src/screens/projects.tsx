@@ -12,6 +12,8 @@ import Tooltip from "../components/tooltip";
 import Header from "../components/header";
 import { Carousel } from "../components/carousel";
 
+import type { JSX } from "react";
+
 const exampleProjects = [
   {
     name: "Orchidana",
@@ -64,9 +66,11 @@ export const Projects = (): JSX.Element => {
       <Stack spacing={4}>
         <Header title="Projects" />
         <Box>
-          <Grid container spacing={8} justifyContent="flex-start">
+          <Grid container spacing={8} sx={{
+            justifyContent: "flex-start"
+          }}>
             {exampleProjects.map((el) => (
-              <Grid key={el.name} item xs={12}>
+              <Grid key={el.name} size={12}>
                 <Box>
                   {el.img && el.img.length > 0 ? (
                     <Carousel images={el.img} />
@@ -75,7 +79,9 @@ export const Projects = (): JSX.Element => {
                     <Typography variant="h5" component="div">
                       {el.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{
+                      color: "text.secondary"
+                    }}>
                       {el.description}
                     </Typography>
                   </Box>

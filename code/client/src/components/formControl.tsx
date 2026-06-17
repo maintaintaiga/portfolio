@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, type JSX } from "react";
 
 type CompProps = {
   label: string;

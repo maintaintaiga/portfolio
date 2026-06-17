@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, type JSX } from "react";
 import { Stack, Paper, Button } from "@mui/material";
 
 import FormControl from "../components/formControl";
@@ -112,9 +112,9 @@ export const Contact = (): JSX.Element => {
         sx={{
           border: "8px solid",
           borderColor: (theme) =>
-            theme.palette.mode === "dark" ? "#424242" : "#ffdfac",
+            theme.palette.mode === "dark" ? "#424242" : "#e4e4e4",
           bgcolor: (theme) =>
-            theme.palette.mode === "dark" ? "#3e3b35" : "#ffd289",
+            theme.palette.mode === "dark" ? "#3e3b35" : "#ffffff",
           p: 2,
           width: "100%",
           height: { xs: "auto", sm: formHeight },
@@ -130,14 +130,18 @@ export const Contact = (): JSX.Element => {
               onChange={handleUpdateForm}
               multiline={el === "message"}
               error={Boolean(
-                formError ? formError[el as keyof FormProps] : false
+                formError ? formError[el as keyof FormProps] : false,
               )}
               helperText={formError ? formError[el as keyof FormProps] : ""}
             />
           ))}
         </Stack>
       </Paper>
-      <Button onClick={checkFormData} color="inherit" variant="outlined">
+      <Button
+        onClick={checkFormData}
+        sx={{ bgcolor: "white", color: "black" }}
+        variant="contained"
+      >
         Submit
       </Button>
     </Stack>

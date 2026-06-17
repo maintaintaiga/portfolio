@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,6 +17,7 @@ import {
   AlertColor,
   Container,
   Button,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -94,7 +95,7 @@ export const Navigation = (): JSX.Element => {
           <AppBar
             sx={{
               boxShadow: 0,
-              bgcolor: (theme) => theme.palette.background.default,
+              bgcolor: "transparent",
             }}
           >
             <Toolbar>
@@ -111,12 +112,30 @@ export const Navigation = (): JSX.Element => {
               >
                 <MenuIcon />
               </IconButton>
-              <Box component={Link} to="/" sx={{ flexGrow: 1 }}>
+              <Box
+                component={Link}
+                to="/"
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  gap: 1,
+                }}
+              >
                 <Avatar
                   sx={{ width: 50, height: 50 }}
                   alt="img"
                   src="/android-chrome-384x384.png"
                 />
+                <Typography
+                  sx={{
+                    fontSize: 20,
+                  }}
+                  color="white"
+                >
+                  Kate Ramshaw
+                </Typography>
               </Box>
               <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
                 {navItems.map((item) => (

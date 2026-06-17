@@ -1,3 +1,4 @@
+import { useEffect, type JSX } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 
@@ -9,6 +10,10 @@ import { CssBaseline } from "@mui/material";
 
 function App(): JSX.Element {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   if (!componentMounted) {
     return <div />;

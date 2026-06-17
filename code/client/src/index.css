@@ -1,12 +1,71 @@
+:root {
+  --app-font-family: "Roboto", sans-serif;
+  --app-text: #0b0b0b;
+  --app-bg:
+    radial-gradient(
+      80% 70% at 0% 20%,
+      rgba(133, 144, 190, 0.95) 0%,
+      rgba(133, 144, 190, 0.45) 25%,
+      transparent 65%
+    ),
+    radial-gradient(
+      70% 55% at 52% 0%,
+      rgba(157, 208, 193, 0.95) 0%,
+      rgba(157, 208, 193, 0.45) 30%,
+      transparent 65%
+    ),
+    radial-gradient(
+      65% 60% at 100% 8%,
+      rgba(194, 225, 217, 0.95) 0%,
+      rgba(194, 225, 217, 0.45) 35%,
+      transparent 70%
+    ),
+    radial-gradient(
+      75% 75% at 100% 55%,
+      rgba(222, 199, 215, 0.85) 0%,
+      rgba(222, 199, 215, 0.35) 40%,
+      transparent 75%
+    ),
+    radial-gradient(
+      90% 80% at 25% 75%,
+      rgba(195, 192, 219, 0.9) 0%,
+      rgba(195, 192, 219, 0.35) 40%,
+      transparent 75%
+    ),
+    linear-gradient(135deg, #d4d7e3 0%, #ddd9e6 45%, #e8dbe4 100%);
+
+  --app-bg-dark:
+    radial-gradient(
+      80% 70% at 0% 20%,
+      rgba(10, 15, 30, 0.95) 0%,
+      rgba(10, 15, 30, 0.6) 25%,
+      transparent 65%
+    ),
+    radial-gradient(
+      70% 55% at 52% 0%,
+      rgba(15, 25, 30, 0.9) 0%,
+      rgba(15, 25, 30, 0.5) 30%,
+      transparent 65%
+    ),
+    linear-gradient(180deg, #071022 0%, #0b1220 100%);
+}
+
+[data-theme="dark"] {
+  --app-bg: var(--app-bg-dark);
+  --app-text: #e6eef7;
+}
+
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: var(--app-font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  background: var(--app-bg);
+  color: var(--app-text);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

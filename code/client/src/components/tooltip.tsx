@@ -4,6 +4,8 @@ import MuiTooltip, {
 } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
 
+import type { JSX } from "react";
+
 type CompProps = {
   children: JSX.Element;
   title: string;

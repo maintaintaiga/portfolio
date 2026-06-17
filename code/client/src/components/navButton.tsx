@@ -1,6 +1,8 @@
 import Button from "@mui/material/Button";
 import { Link as RouterLink, useMatch } from "react-router-dom";
 
+import type { JSX } from "react";
+
 type NavButtonProps = {
   label: string;
   url: string;

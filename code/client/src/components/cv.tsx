@@ -7,7 +7,7 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, type JSX } from "react";
 
 import { htmlToPdf } from "../utils/convertHtmlToPdf";
 import { ApiAxios } from "../utils/customAxios";
@@ -127,9 +127,8 @@ export const CVDocument = (): JSX.Element => {
         ? data.skills.map((el) => (
             <ListItem key={el.label} disablePadding>
               <ListItemText
-                primaryTypographyProps={{
-                  fontStyle: "italic",
-                  fontWeight: 500,
+                slotProps={{
+                  primary: { sx: { fontStyle: "italic", fontWeight: 500 } },
                 }}
                 primary={el.label}
                 secondary={el.skills ?? ""}
@@ -144,7 +143,7 @@ export const CVDocument = (): JSX.Element => {
     <Grid container spacing={1}>
       {data?.skillsGeneral
         ? data?.skillsGeneral.map((el) => (
-            <Grid item key={el.label} xs={6}>
+            <Grid key={el.label} size={6}>
               <Typography
                 sx={{ fontStyle: "italic", fontWeight: 500, fontSize: 14 }}
               >
@@ -164,9 +163,8 @@ export const CVDocument = (): JSX.Element => {
             .map((el) => (
               <ListItem key={el.label} disablePadding>
                 <ListItemText
-                  primaryTypographyProps={{
-                    fontStyle: "italic",
-                    fontWeight: 500,
+                  slotProps={{
+                    primary: { sx: { fontStyle: "italic", fontWeight: 500 } },
                   }}
                   primary={el.label}
                   secondary={el.description}
@@ -223,7 +221,7 @@ export const CVDocument = (): JSX.Element => {
     <Grid container spacing={1}>
       {data?.interests
         ? data?.interests.map((el) => (
-            <Grid item key={el} xs={6}>
+            <Grid key={el} size={6}>
               <Typography
                 sx={{ fontStyle: "italic", fontWeight: 500, fontSize: 14 }}
               >
