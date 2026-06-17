@@ -34,13 +34,13 @@ const beskills = [
 export const Home = (): JSX.Element => {
   return (
     <Box sx={{ mt: 12 }}>
-        <Grid
+      <Grid
         container
         sx={{
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-        <Grid sx={{ mt: 5, mb: 10 }}>
+          alignItems: "center",
+        }}
+      >
+        <Grid size={6} sx={{ mt: 5, mb: 10 }}>
           <Header title="Hello," noColor />
           <Typography
             variant="h4"

@@ -66,9 +66,13 @@ export const Projects = (): JSX.Element => {
       <Stack spacing={4}>
         <Header title="Projects" />
         <Box>
-          <Grid container spacing={8} sx={{
-            justifyContent: "flex-start"
-          }}>
+          <Grid
+            container
+            spacing={8}
+            sx={{
+              justifyContent: "flex-start",
+            }}
+          >
             {exampleProjects.map((el) => (
               <Grid key={el.name} size={12}>
                 <Box>
@@ -79,9 +83,12 @@ export const Projects = (): JSX.Element => {
                     <Typography variant="h5" component="div">
                       {el.name}
                     </Typography>
-                    <Typography variant="body2" sx={{
-                      color: "text.secondary"
-                    }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
                       {el.description}
                     </Typography>
                   </Box>
