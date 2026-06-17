@@ -17,3 +17,5 @@ code/server/dist
 # Ignore pdf file
 code/server/cvPortfolioFile.pdf
 code/server/util/cvInfo.ts
+
+.vscode/chrome/*
