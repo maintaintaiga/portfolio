@@ -1,7 +1,7 @@
 import { useEffect, type JSX } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
+import { RouterProvider } from "react-router-dom";
 
 import { lightTheme, darkTheme } from "./theme";
 import { ThemeContext } from "./context/theme";

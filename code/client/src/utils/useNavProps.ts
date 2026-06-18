@@ -8,7 +8,7 @@ type SnackbarProps = {
 
 export const useNavProps = (): [
   (state: SnackbarProps) => void,
-  (state: boolean) => void
+  (state: boolean) => void,
 ] => {
   return useOutletContext<
     [(state: SnackbarProps) => void, (state: boolean) => void]

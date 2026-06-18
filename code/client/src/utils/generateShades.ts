@@ -1,6 +1,6 @@
 export const generateShades = (hex: string, variation: number): string => {
   // Convert hex to RGB
-  const hexToRgb = (hex: string): any => {
+  const hexToRgb = (hex: string): number[] => {
     const bigint = parseInt(hex.slice(1), 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
